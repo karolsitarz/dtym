@@ -1,0 +1,37 @@
+{
+   "name": "dtym-react",
+   "version": "1.0.0",
+   "description": "",
+   "main": "index.js",
+   "scripts": {
+      "server": "webpack --config-name server -p",
+      "client": "webpack --config-name client -p",
+      "server-d": "webpack  --config-name server -d",
+      "client-d": "webpack --config-name client -d",
+      "build": "webpack -p",
+      "build-d": "webpack -d",
+      "us": "npm run server-d && npm run s",
+      "us-p": "npm run server && npm run s",
+      "hmr": "webpack-dev-server --config-name client",
+      "s": "SET IP=127.0.0.1&& SET PORT=443&& node dist/server.js",
+      "startall": "webpack -p && npm run s"
+   },
+   "keywords": [],
+   "author": "",
+   "license": "ISC",
+   "devDependencies": {
+      "babel-core": "^6.26.3",
+      "babel-loader": "^7.1.5",
+      "babel-preset-env": "^1.7.0",
+      "babel-preset-react": "^6.24.1",
+      "html-webpack-plugin": "^3.2.0",
+      "webpack": "^4.20.2",
+      "webpack-cli": "^3.1.2",
+      "webpack-dev-server": "^3.1.9"
+   },
+   "dependencies": {
+      "react": "^16.5.2",
+      "react-dom": "^16.5.2",
+      "styled-components": "^3.4.10"
+   }
+}
