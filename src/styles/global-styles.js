@@ -1,4 +1,4 @@
-import { injectGlobal } from 'styled-components';
+import { injectGlobal } from 'styled-components'
 
 injectGlobal`
   /* latin-ext */
@@ -70,5 +70,10 @@ injectGlobal`
   }
   :focus {
     outline: none;
+  }
+  #container {
+    width: 100%;
+    height: 100%;
+    margin: auto;
   }
 `

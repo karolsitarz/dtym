@@ -1,10 +1,29 @@
-import React from "react";
-import ReactDOM from "react-dom";
+import React from 'react'
+import ReactDOM from 'react-dom'
 
-import './styles/global-styles';
+import { ThemeProvider } from 'styled-components'
 
-const Index = () => {
-  return <div>dupa</div>;
-};
+import './styles/global-styles'
+import theme from './styles/theme'
 
-ReactDOM.render(<Index />, document.getElementById("index"));
+import Login from './sections/Login'
+
+class App extends React.Component {
+  constructor (props) {
+    super(props)
+
+    this.state = {
+      theme: 'light'
+    }
+  }
+  render () {
+    return (
+      <ThemeProvider
+        theme={theme[this.state.theme]} >
+        <Login />
+      </ThemeProvider>
+    )
+  }
+}
+
+ReactDOM.render(<App />, document.getElementById('container'))
