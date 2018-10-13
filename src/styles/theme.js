@@ -19,6 +19,6 @@ export default {
     main_1: '#eeeeee',
     main_4: '#bbbbbb',
     mainGradient: 'linear-gradient(to right bottom, #6377cf 0%, #694f82 100%)',
-    secondGradient: `linear-gradient(to right bottom, #363e63 0%, #56436b 100%)`
+    secondGradient: `linear-gradient(to right bottom, #5e6ba6 0%, #7e629d 100%)`
   })
 }
