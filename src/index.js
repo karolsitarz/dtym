@@ -1,12 +1,23 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-import { ThemeProvider } from 'styled-components'
+import style, { ThemeProvider } from 'styled-components'
 
 import './styles/global-styles'
 import theme from './styles/theme'
 
 import Login from './sections/Login'
+
+const RootStyle = style.div`
+  height: 100%;
+  width: 100%;
+
+  &,
+  &::before,
+  &::after {
+    color: ${props => props.theme.main_1}
+  }
+`
 
 class App extends React.Component {
   constructor (props) {
@@ -16,11 +27,19 @@ class App extends React.Component {
       theme: 'light'
     }
   }
+
+  onThemeChange () {
+    (this.state.theme === 'light') ? this.setState({ theme: 'dark' }) : this.setState({ theme: 'light' })
+  }
+
   render () {
     return (
       <ThemeProvider
         theme={theme[this.state.theme]} >
-        <Login />
+        <RootStyle>
+          <Login
+            themeChange={e => this.onThemeChange()} />
+        </RootStyle>
       </ThemeProvider>
     )
   }

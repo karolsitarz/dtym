@@ -22,11 +22,12 @@ const StyledButton = styled.div`
   background-color: ${props => props.theme.semiTransparentValue};
   background-image: ${props => props.primary ? props.theme.mainGradient : ''};
 
-  color: ${props => props.primary ? props.theme.white : props.theme.text};
-  fill: ${props => props.primary ? props.theme.white : props.theme.text};
+  color: ${props => props.primary ? props.theme.white : props.theme.main_2};
+  fill: ${props => props.primary ? props.theme.white : props.theme.main_2};
 
   & svg {
     height: 1em;
+    pointer-events: none;
   }
 `
 

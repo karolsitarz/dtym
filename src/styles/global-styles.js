@@ -38,7 +38,6 @@ injectGlobal`
     box-sizing: border-box;
     position: relative;
     font-family: 'Montserrat', Helvetica, sans-serif;
-    color: #333;
     -webkit-tap-highlight-color: rgba(0,0,0,0);
     -webkit-tap-highlight-color: transparent;
   }
