@@ -1,10 +1,10 @@
 import React from 'react'
 
-import style from 'styled-components'
+import styled from 'styled-components'
 
 import ImageToURI from '../utils/ImageToURI'
 
-const StyledImageSelector = style.label`
+const ImageSelector = styled.label`
   &,
   & > div {
     border-radius: 5em;
@@ -14,7 +14,7 @@ const StyledImageSelector = style.label`
   }
 
   & > div {
-    background-color: #00000014;
+    background-color: ${props => props.theme.semiTransparentValue};
     background-repeat: no-repeat;
     background-position: 50%;
     background-size: cover;
@@ -25,7 +25,7 @@ const StyledImageSelector = style.label`
   }
 `
 
-export default class ImageSelector extends React.Component {
+export default class extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
@@ -41,14 +41,14 @@ export default class ImageSelector extends React.Component {
   }
   render () {
     return (
-      <StyledImageSelector>
+      <ImageSelector>
         <div
           style={{ backgroundImage: `url(${this.state.image})` }} />
         <input
           onChange={e => this.handleOnChange(e)}
           type='file'
           accept='image/*' />
-      </StyledImageSelector>
+      </ImageSelector>
     )
   }
 }

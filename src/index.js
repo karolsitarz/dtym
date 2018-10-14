@@ -7,6 +7,9 @@ import './styles/global-styles'
 import theme from './styles/theme'
 
 import Login from './sections/Login'
+import RoomList from './sections/RoomList'
+
+const socket = new window.WebSocket(`ws://${window.location.hostname}:443`)
 
 const RootStyle = style.div`
   height: 100%;
@@ -24,7 +27,8 @@ class App extends React.Component {
     super(props)
 
     this.state = {
-      theme: 'light'
+      theme: 'light',
+      section: 'roomlist'
     }
   }
 
@@ -38,11 +42,27 @@ class App extends React.Component {
         theme={theme[this.state.theme]} >
         <RootStyle>
           <Login
+            currentSection={this.state.section}
             themeChange={e => this.onThemeChange()} />
+          <RoomList
+            currentSection={this.state.section} />
         </RootStyle>
       </ThemeProvider>
     )
   }
 }
+socket.onopen = () => {
+  // add socket commands
+  require('./utils/websocket/socketSetup')(socket)
 
-ReactDOM.render(<App />, document.getElementById('container'))
+  // on close event
+  socket.onclose = () => {
+    Error('connection_lost')
+  }
+
+  // when server sends language data
+  socket.receive('setup_languageSet', data => {
+    console.log(data)
+    ReactDOM.render(<App />, document.getElementById('container'))
+  })
+}

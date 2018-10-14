@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 
-const StyledButton = styled.div`
+const Button = styled.div`
   border-radius: 10000000px;
   overflow: hidden;
   padding: ${props => typeof (props.children) === 'object' ? '.75em 1.5em' : '.75em 3.7em .75em 4em'};
@@ -17,6 +17,7 @@ const StyledButton = styled.div`
   justify-content: center;
   align-items: center;
   box-shadow: 0 0 0 1px #00000014;
+  margin: .5em 0;
   background-size: cover;
   background-position: center;
   background-color: ${props => props.theme.semiTransparentValue};
@@ -31,12 +32,12 @@ const StyledButton = styled.div`
   }
 `
 
-export default function Button (props) {
+export default function (props) {
   return (
-    <StyledButton
+    <Button
       onClick={props.onClick}
       primary={props.primary || null} >
       {props.children}
-    </StyledButton>
+    </Button>
   )
 }

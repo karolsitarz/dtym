@@ -1,8 +1,8 @@
 import React from 'react'
 
-import style from 'styled-components'
+import styled from 'styled-components'
 
-const StyledSection = style.div`
+const Section = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -16,10 +16,10 @@ const StyledSection = style.div`
   background: ${props => props.theme.backgroundColor}
 `
 
-export default function Section (props) {
+export default function (props) {
   return (
-    <StyledSection>
+    <Section>
       {props.children}
-    </StyledSection>
+    </Section>
   )
 }

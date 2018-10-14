@@ -1,8 +1,8 @@
 import React from 'react'
 
-import style from 'styled-components'
+import styled from 'styled-components'
 
-const StyledTextInputSpan = style.span`
+const TextInputSpan = styled.span`
   text-transform: uppercase;
   font-size: .8em;
   letter-spacing: .2em;
@@ -15,7 +15,7 @@ const StyledTextInputSpan = style.span`
   transition: transform .3s ease,opacity .3s ease;
   transform: translate3d(-50%,-50%,0);
   opacity: .5;
-  color: ${props => props.theme.main_4}
+  color: ${props => props.theme.main_4};
   
   &::before {
     content: "";
@@ -32,7 +32,7 @@ const StyledTextInputSpan = style.span`
     opacity: 0;
   }
 `
-const StyledTextInput = style.input`
+const TextInput = styled.input`
   border-radius: 3em;
   overflow: hidden;
   padding: .75em 3.95em .75em 4em;
@@ -46,6 +46,7 @@ const StyledTextInput = style.input`
   font-size: .8em;
   width: 100%;
   max-width: 300px;
+  margin: .5em 0;
 
   &:focus + span,
   &:not(:placeholder-shown) + span {
@@ -58,16 +59,16 @@ const StyledTextInput = style.input`
   }
 `
 
-export default function TextInput (props) {
+export default function (props) {
   return (
     <label>
-      <StyledTextInput
+      <TextInput
         type='text'
         maxLength='20'
         placeholder=' ' />
-      <StyledTextInputSpan>
+      <TextInputSpan>
         {props.placeholder}
-      </StyledTextInputSpan>
+      </TextInputSpan>
     </label>
   )
 }

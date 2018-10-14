@@ -1,8 +1,8 @@
-const webpack = require('webpack');
-const path = require('path');
-const HtmlWebPackPlugin = require("html-webpack-plugin");
+const webpack = require('webpack')
+const path = require('path')
+const HtmlWebPackPlugin = require('html-webpack-plugin')
 
-module.exports = (env,argv) => [
+module.exports = (env, argv) => [
   {
     name: 'client',
     target: 'web',
@@ -12,7 +12,7 @@ module.exports = (env,argv) => [
         test: /\.js$/,
         exclude: /node_modules/,
         use: {
-          loader: "babel-loader"
+          loader: 'babel-loader'
         }
       }]
     },
@@ -20,37 +20,44 @@ module.exports = (env,argv) => [
       contentBase: './dist',
       hot: true,
       open: true,
-      host: "127.0.0.1",
-      port: "1234"
+      host: '127.0.0.1',
+      port: '1234'
     },
     plugins: [
       argv.mode === 'production' ? undefined : new webpack.NamedModulesPlugin(),
       argv.mode === 'production' ? undefined : new webpack.HotModuleReplacementPlugin(),
       new HtmlWebPackPlugin({
-        template: "./src/index.html",
-        filename: "./index.html"
+        template: './src/index.html',
+        filename: './index.html'
       })
     ].filter(Boolean),
     node: {
       __dirname: false
     },
-    mode: "production",
+    mode: 'production',
     performance: {
-      hints: argv.mode === 'production' ? "warning" : false
+      hints: argv.mode === 'production' ? 'warning' : false
     },
-    devtool: argv.mode === 'production' ? "none" : "inline-source-map"
+    devtool: argv.mode === 'production' ? 'none' : 'inline-source-map'
   },
   {
     name: 'server',
     target: 'node',
-    entry: [
-      './src/server.js'
-    ],
-    mode: "production",
+    entry: './src/server.js',
+    module: {
+      rules: [{
+        test: /\.js$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader'
+        }
+      }]
+    },
+    mode: 'production',
     node: {
       __dirname: false
     },
-    devtool: argv.mode === 'production' ? "none" : "inline-source-map",
+    devtool: argv.mode === 'production' ? 'none' : 'inline-source-map',
     output: {
       path: path.join(__dirname, '/dist'),
       filename: 'server.js',
