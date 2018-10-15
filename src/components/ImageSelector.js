@@ -4,7 +4,8 @@ import styled from 'styled-components'
 
 import ImageToURI from '../utils/ImageToURI'
 
-const ImageSelector = styled.label`
+const StyledImageSelector = styled.label`
+  margin: 2em 0 1em;
   &,
   & > div {
     border-radius: 5em;
@@ -25,7 +26,7 @@ const ImageSelector = styled.label`
   }
 `
 
-export default class extends React.Component {
+export default class ImageSelector extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
@@ -41,14 +42,14 @@ export default class extends React.Component {
   }
   render () {
     return (
-      <ImageSelector>
+      <StyledImageSelector>
         <div
           style={{ backgroundImage: `url(${this.state.image})` }} />
         <input
           onChange={e => this.handleOnChange(e)}
           type='file'
           accept='image/*' />
-      </ImageSelector>
+      </StyledImageSelector>
     )
   }
 }

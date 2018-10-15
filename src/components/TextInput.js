@@ -32,7 +32,7 @@ const TextInputSpan = styled.span`
     opacity: 0;
   }
 `
-const TextInput = styled.input`
+const StyledTextInput = styled.input`
   border-radius: 3em;
   overflow: hidden;
   padding: .75em 3.95em .75em 4em;
@@ -59,10 +59,10 @@ const TextInput = styled.input`
   }
 `
 
-export default function (props) {
+export default function TextInput (props) {
   return (
     <label>
-      <TextInput
+      <StyledTextInput
         type='text'
         maxLength='20'
         placeholder=' ' />

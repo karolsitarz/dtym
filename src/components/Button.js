@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 
-const Button = styled.div`
+const StyledButton = styled.div`
   border-radius: 10000000px;
   overflow: hidden;
   padding: ${props => typeof (props.children) === 'object' ? '.75em 1.5em' : '.75em 3.7em .75em 4em'};
@@ -32,12 +32,12 @@ const Button = styled.div`
   }
 `
 
-export default function (props) {
+export default function Button (props) {
   return (
-    <Button
+    <StyledButton
       onClick={props.onClick}
       primary={props.primary || null} >
       {props.children}
-    </Button>
+    </StyledButton>
   )
 }

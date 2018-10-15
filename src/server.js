@@ -15,9 +15,6 @@ app.ws('/', (socket, req) => {
   socket.on('close', () => {
     console.log(`DISCONNECT ${socket.ID}`)
   })
-  socket.on('close', () => {
-    console.log(`dupa ${socket.ID}`)
-  })
 
   socket.comm = (message = '', data = '') => {
     if (typeof (message) === 'string') {

@@ -4,6 +4,8 @@ import Button from '../components/Button'
 import Card from '../components/Card'
 import TextInput from '../components/TextInput'
 import Section from '../components/Section'
+import ScrollInput from '../components/ScrollInput'
+import Toggle from '../components/Toggle'
 
 export default function (props) {
   if (props.currentSection === 'roomlist') {
@@ -15,6 +17,8 @@ export default function (props) {
         <Card>
           <TextInput placeholder='room name' />
           <TextInput placeholder='room password' />
+          <ScrollInput min={0} max={20} default={8} infinity label='czesc' />
+          <Toggle label='siemano' />
           <Button primary>
             create
           </Button>

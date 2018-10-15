@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-import style, { ThemeProvider } from 'styled-components'
+import styled, { ThemeProvider } from 'styled-components'
 
 import './styles/global-styles'
 import theme from './styles/theme'
@@ -11,7 +11,7 @@ import RoomList from './sections/RoomList'
 
 const socket = new window.WebSocket(`ws://${window.location.hostname}:443`)
 
-const RootStyle = style.div`
+const RootStyle = styled.div`
   height: 100%;
   width: 100%;
 
@@ -27,19 +27,19 @@ class App extends React.Component {
     super(props)
 
     this.state = {
-      theme: 'light',
+      darkMode: false,
       section: 'roomlist'
     }
   }
 
   onThemeChange () {
-    (this.state.theme === 'light') ? this.setState({ theme: 'dark' }) : this.setState({ theme: 'light' })
+    this.setState({ darkMode: !this.state.darkMode })
   }
 
   render () {
     return (
       <ThemeProvider
-        theme={theme[this.state.theme]} >
+        theme={theme[this.state.darkMode ? 'dark' : 'light']} >
         <RootStyle>
           <Login
             currentSection={this.state.section}
