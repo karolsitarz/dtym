@@ -19,6 +19,7 @@ const StyledImageSelector = styled.label`
     background-repeat: no-repeat;
     background-position: 50%;
     background-size: cover;
+    background-image: url(${props => props.image ? props.image : ''})
   }
 
   & > input {
@@ -34,17 +35,22 @@ export default class ImageSelector extends React.Component {
     }
     this.handleOnChange = this.handleOnChange.bind(this)
   }
+  componentWillMount () {
+    if (typeof (this.props.initial) === 'string') {
+      this.state.image = this.props.initial
+    }
+  }
   handleOnChange (e) {
     ImageToURI(e.target, 200)
       .then(url => {
         this.setState({ image: url })
+        this.props.success(url)
       })
   }
   render () {
     return (
-      <StyledImageSelector>
-        <div
-          style={{ backgroundImage: `url(${this.state.image})` }} />
+      <StyledImageSelector image={this.state.image}>
+        <div />
         <input
           onChange={e => this.handleOnChange(e)}
           type='file'

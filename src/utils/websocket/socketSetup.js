@@ -1,9 +1,13 @@
 module.exports = socket => {
-  // add a send event
+  // add the events object
+  socket.Events = {}
+  const { Events } = socket
+
+  // add the send event
   socket.comm = function (message = '', data = '') {
     this.send(JSON.stringify({ message, data }))
     // add outgoing colored console log
-    if (window.localStorage.getItem('DTYM_Debug') === 'true') {
+    if (window.localStorage['dtym_debug'] === 'true') {
       console.log(`%c→ ${message}`, 'color: #2C7C26;')
     }
   }
@@ -11,7 +15,7 @@ module.exports = socket => {
   // add a receive listener
   socket.receive = function (message, callback) {
     if (typeof (message) === 'string' && typeof (callback) === 'function') {
-      socket.addEventListener('message', (connection) => {
+      Events[message] = socket.addEventListener('message', (connection) => {
         try {
           var data = JSON.parse(connection.data)
         } catch (e) {
@@ -31,7 +35,7 @@ module.exports = socket => {
     } catch (e) {
       return
     }
-    if (window.localStorage.getItem('DTYM_Debug') === 'true') {
+    if (window.localStorage['dtym_debug'] === 'true') {
       console.log(`%c← ${data.message}`, 'color: #7C2626;text-align: right; margin-left: auto')
     }
   })

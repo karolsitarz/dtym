@@ -63,6 +63,7 @@ export default function TextInput (props) {
   return (
     <label>
       <StyledTextInput
+        innerRef={e => { if (props.sendValue) props.sendValue(e) }}
         type='text'
         maxLength='20'
         placeholder=' ' />
