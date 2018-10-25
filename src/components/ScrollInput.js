@@ -84,6 +84,9 @@ export default class ScrollInput extends React.Component {
 
       // get current segment, then access it and get its $value prop
       this._scroll.value = cellElements[currentSegment].props.$value
+
+      // pass the value down to prop
+      if (this.props.sendValue) this.props.sendValue(this._scroll.value)
     }
     /*
     const cutOutCurrentValue = () => {
@@ -129,11 +132,15 @@ export default class ScrollInput extends React.Component {
       this._scroll.scrollTo(0, scrollPos * this.DOMnode.offsetHeight, 0)
     }
 
+    // set initial value
+    setNewValue()
+
     // update value on segment change
     this._scroll.addEventListener('segmentdidchange', () => {
       setNewValue()
     }, { passive: true })
   }
+
   componentWillMount () {
     let cellElements = []
     // add infinity or random if needed
@@ -163,6 +170,7 @@ export default class ScrollInput extends React.Component {
     this.cellElements = cellElements
     this.state.renderedCellElements = cellElements
   }
+
   render () {
     if (this.props.label) {
       return (

@@ -6,6 +6,7 @@ module.exports = (app, socket) => {
   socket.receive('login_prompt', data => {
     if ('name' in data &&
     typeof (data.name) === 'string' &&
+    data.name.length > 1 &&
     data.name.length <= 20 &&
     'avatar' in data &&
     getURISize(data.avatar) < 100000) {
@@ -17,7 +18,8 @@ module.exports = (app, socket) => {
       socket.comm('login_success', {
         name: thisSocket.name,
         avatar: thisSocket.avatar,
-        sessionKey: socket.sessionKey
+        sessionKey: socket.sessionKey,
+        currentRoom: null
       })
     }
   })

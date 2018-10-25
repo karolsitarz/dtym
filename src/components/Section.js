@@ -1,6 +1,6 @@
 import React from 'react'
 
-import styled from 'styled-components'
+import styled, { ThemeProvider } from 'styled-components'
 
 const StyledSection = styled.div`
   display: flex;
@@ -13,13 +13,20 @@ const StyledSection = styled.div`
   margin: auto;
   padding: 1em;
   transition: padding .3s ease;
-  background: ${props => props.theme.backgroundColor}
+  background: ${props => props.theme.backgroundColor};
 `
+
+const padding = {
+  MiddleSectionBottomPadding: '3em'
+}
 
 export default function Section (props) {
   return (
-    <StyledSection>
-      {props.children}
-    </StyledSection>
+    <ThemeProvider
+      theme={props.children[props.children.length - 1].props.$isACard ? padding : {}}>
+      <StyledSection>
+        {props.children}
+      </StyledSection>
+    </ThemeProvider>
   )
 }

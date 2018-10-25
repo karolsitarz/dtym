@@ -34,10 +34,10 @@ app.defaultAvatar = `data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAA0J
 
 console.DLog = (...msg) => {
   const d = new Date()
-  const h = d.getHours().length < 10 ? `0${d.getHours()}` : d.getHours()
-  const m = d.getMinutes().length < 10 ? `0${d.getMinutes()}` : d.getMinutes()
-  const s = d.getSeconds().length < 10 ? `0${d.getSeconds()}` : d.getSeconds()
-  console.log(`[${h}:${m}:${s}]\t`, msg.join('\t'))
+  const h = d.getHours() < 10 ? `0${d.getHours()}` : d.getHours()
+  const m = d.getMinutes() < 10 ? `0${d.getMinutes()}` : d.getMinutes()
+  const s = d.getSeconds() < 10 ? `0${d.getSeconds()}` : d.getSeconds()
+  console.log(`[${h}:${m}:${s}] `, msg.join('\t'))
 }
 
 // end of global variable setup
@@ -55,7 +55,7 @@ app.ws('/', (socket, req) => {
   })
 
   // communication
-  require('./utils/server/communication')(socket)
+  require('./utils/server/communication')(app, socket)
   require('./utils/server/login')(app, socket)
 
   // language send

@@ -1,4 +1,4 @@
-module.exports = socket => {
+module.exports = (app, socket) => {
   // send event
   socket.comm = (message = '', data = '') => {
     if (typeof (message) === 'string') {
@@ -19,7 +19,28 @@ module.exports = socket => {
         if (data.message === message) {
           callback(data.data)
         }
+        console.log(`[DEBUG]  ${data.message}`)
       })
+    }
+  }
+
+  // broadcast in room
+  socket.commBroadcast = {
+    room: roomName => {
+      const currentSocketID = socket.ID
+      if (roomName in app.rooms) {
+        return {
+          comm: (message = 'empty', data = '') => {
+            if (typeof (message) === 'string') {
+              for (let socketID in app.userRooms[roomName].players) {
+                if (socketID !== currentSocketID) {
+                  app.userRef[socket.ID].send(JSON.stringify({ message, data }))
+                }
+              }
+            }
+          }
+        }
+      }
     }
   }
 }
