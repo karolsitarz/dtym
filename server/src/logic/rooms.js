@@ -87,24 +87,26 @@ module.exports = (app, socket) => {
   }
 
   socket.createRoom = (data) => {
-    if (data.name.length <= 20 &&
-        data.name.length >= 2 &&
-        (!data.password ||
-          (data.password.length <= 20 &&
-            data.password.length > 0)) &&
-        data.slots >= 4 &&
-        data.slots <= 20) {
-      // generate room hash
-      let roomName = randomize('Aa0', 5);
-      while (roomName in app.ROOMS) roomName = randomize('Aa0', 5);
+    if (socket.currentRoom == null) {
+      if (data.name.length <= 20 &&
+          data.name.length >= 2 &&
+          (!data.password ||
+            (data.password.length <= 20 &&
+              data.password.length > 0)) &&
+          data.slots >= 4 &&
+          data.slots <= 20) {
+        // generate room hash
+        let roomName = randomize('Aa0', 5);
+        while (roomName in app.ROOMS) roomName = randomize('Aa0', 5);
 
-      app.ROOMS[roomName] = new Room({
-        name: data.name,
-        password: data.password,
-        slots: data.slots
-      });
+        app.ROOMS[roomName] = new Room({
+          name: data.name,
+          password: data.password,
+          slots: data.slots
+        });
 
-      socket.joinRoom(roomName);
+        socket.joinRoom(roomName);
+      }
     }
   };
 };

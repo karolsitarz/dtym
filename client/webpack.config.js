@@ -1,6 +1,5 @@
-const webpack = require('webpack')
-const path = require('path')
-const HtmlWebPackPlugin = require('html-webpack-plugin')
+const webpack = require('webpack');
+const HtmlWebPackPlugin = require('html-webpack-plugin');
 
 module.exports = (env, argv) => [
   {
@@ -17,7 +16,7 @@ module.exports = (env, argv) => [
       }]
     },
     devServer: {
-      contentBase: './dist',
+      contentBase: '../dist',
       hot: true,
       open: true,
       host: '127.0.0.1',
@@ -39,29 +38,4 @@ module.exports = (env, argv) => [
       hints: argv.mode === 'production' ? 'warning' : false
     },
     devtool: argv.mode === 'production' ? 'none' : 'inline-source-map'
-  },
-  {
-    name: 'server',
-    target: 'node',
-    entry: './src/server.js',
-    module: {
-      rules: [{
-        test: /\.js$/,
-        exclude: /node_modules/,
-        use: {
-          loader: 'babel-loader'
-        }
-      }]
-    },
-    mode: 'production',
-    node: {
-      __dirname: false
-    },
-    devtool: argv.mode === 'production' ? 'none' : 'inline-source-map',
-    output: {
-      path: path.join(__dirname, '/dist'),
-      filename: 'server.js',
-      publicPath: '/'
-    }
-  }
-]
+  }];

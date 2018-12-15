@@ -8,7 +8,7 @@ module.exports = socket => {
     this.send(JSON.stringify({ message, data }));
     // add outgoing colored console log
     if (window.localStorage['dtym_debug'] === 'true') {
-      console.log(`%c→ ${message}`, 'color: #2C7C26;');
+      console.log(`%c→ ${message}`, 'color: #2C7C26', data);
     }
   };
 
@@ -38,7 +38,7 @@ module.exports = socket => {
       return;
     }
     if (window.localStorage['dtym_debug'] === 'true') {
-      console.log(`%c← ${data.message}`, 'color: #7C2626;text-align: right; margin-left: auto');
+      console.log(`\t%c← ${data.message}`, 'color: #7C2626', data);
     }
   });
 };

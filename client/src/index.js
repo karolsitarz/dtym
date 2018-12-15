@@ -25,7 +25,7 @@ if (!window.localStorage['dtym_sessionKey']) window.localStorage['dtym_sessionKe
 
 Socket.onopen = () => {
   // add socket commands
-  require('./utils/websocket/socketSetup')(Socket);
+  require('./util/socketSetup')(Socket);
 
   // add sections
   const Login = require('./sections/Login')(Socket);

@@ -5,21 +5,23 @@ import TextInput from '../components/TextInput';
 import Section from '../components/Section';
 import ImageSelector from '../components/ImageSelector';
 
-module.exports = Socket =>
+module.exports = socket =>
   class Login extends React.Component {
     componentWillMount () {
       this.loginPrompt = () => {
-        Socket.comm('login_prompt', {
+        socket.comm('login_prompt', {
           name: this.nameInput ? this.nameInput.value : '',
           avatar: window.localStorage['dtym_avatar']
         });
       };
 
-      Socket.receive('login_success', data => {
+      socket.receive('login_success', data => {
         window.localStorage['dtym_name'] = data.name;
         window.localStorage['dtym_avatar'] = data.avatar;
         window.localStorage['dtym_sessionKey'] = data.sessionKey;
         this.props.goToSection('RoomList');
+        // refresh roomList
+        socket.comm('roomList_refresh');
       });
     }
     render () {

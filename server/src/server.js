@@ -54,9 +54,9 @@ app.ws('/', (socket, req) => {
   });
 
   // communication
-  require('./utils/server/communication')(app, socket);
-  require('./utils/server/login')(app, socket);
-  require('./utils/server/roomList')(app, socket);
+  require('./nodes/communication')(app, socket);
+  require('./nodes/login')(app, socket);
+  require('./nodes/roomList')(app, socket);
 
   // language send
   socket.comm('connect_setup', {

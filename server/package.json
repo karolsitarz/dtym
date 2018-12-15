@@ -1,0 +1,34 @@
+{
+   "name": "dtym-server",
+   "version": "0.1.0",
+   "description": "",
+   "main": "server.js",
+   "scripts": {
+      "s": "SET IP=127.0.0.1&& SET PORT=443&& node dist/server.js",
+      "build": "webpack -p",
+      "build-d": "webpack -d",
+      "us": "npm run build-d && npm run s",
+      "us-p": "npm run build && npm run s",
+      "nodemon": "SET PORT=443&& nodemon src/server.js"
+   },
+   "keywords": [],
+   "author": "",
+   "license": "ISC",
+   "devDependencies": {
+      "babel-core": "^6.26.3",
+      "babel-loader": "^7.1.5",
+      "babel-preset-env": "^1.7.0",
+      "nodemon": "^1.18.9",
+      "utf-8-validate": "^5.0.1",
+      "webpack": "^4.20.2",
+      "webpack-cli": "^3.1.2",
+      "webpack-dev-server": "^3.1.9"
+   },
+   "dependencies": {
+      "randomatic": "^3.1.0",
+      "express": "^4.16.4",
+      "express-ws": "^4.0.0",
+      "accept-language-parser": "^1.5.0",
+      "bufferutil": "^4.0.0"
+   }
+}

@@ -7,11 +7,11 @@ import Section from '../components/Section';
 import ScrollInput from '../components/ScrollInput';
 import MiddleSection from '../components/MiddleSection';
 
-module.exports = function (Socket) {
+module.exports = function (socket) {
   let i = {};
 
   const roomCreate = e => {
-    Socket.comm('room_createRoom', {
+    socket.comm('room_createRoom', {
       name: i.roomName ? i.roomName.value : '',
       password: i.roomPassword ? i.roomPassword.value : '',
       slots: i.roomSlots

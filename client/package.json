@@ -1,0 +1,31 @@
+{
+   "name": "dtym",
+   "version": "0.1.0",
+   "description": "",
+   "main": "index.js",
+   "scripts": {
+      "build": "webpack -p",
+      "build-d": "webpack -d",
+      "hmr": "webpack-dev-server"
+   },
+   "keywords": [],
+   "author": "",
+   "license": "ISC",
+   "devDependencies": {
+      "babel-core": "^6.26.3",
+      "babel-loader": "^7.1.5",
+      "babel-preset-env": "^1.7.0",
+      "babel-preset-react": "^6.24.1",
+      "html-webpack-plugin": "^3.2.0",
+      "webpack": "^4.20.2",
+      "webpack-cli": "^3.1.2",
+      "webpack-dev-server": "^3.1.9"
+   },
+   "dependencies": {
+      "exif-js": "^2.3.0",
+      "ftscroller": "^0.7.0",
+      "react": "^16.5.2",
+      "react-dom": "^16.5.2",
+      "styled-components": "^3.4.10"
+   }
+}

@@ -2,7 +2,7 @@ import React from 'react';
 
 import styled from 'styled-components';
 
-import ImageToURI from '../utils/ImageToURI';
+import ImageToURI from '../util/ImageToURI';
 
 const StyledImageSelector = styled.label`
   margin: 2em 0 1em;

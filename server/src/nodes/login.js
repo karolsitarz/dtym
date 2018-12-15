@@ -1,4 +1,4 @@
-const getURISize = require('./getUriSize');
+const getURISize = require('../util/getUriSize');
 const randomize = require('randomatic');
 
 module.exports = (app, socket) => {
