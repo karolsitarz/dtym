@@ -1,6 +1,6 @@
-import React from 'react'
+import React from 'react';
 
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 const TextInputSpan = styled.span`
   text-transform: uppercase;
@@ -31,7 +31,7 @@ const TextInputSpan = styled.span`
     transition: opacity .3s ease;
     opacity: 0;
   }
-`
+`;
 const StyledTextInput = styled.input`
   border-radius: 3em;
   overflow: hidden;
@@ -57,13 +57,13 @@ const StyledTextInput = styled.input`
   &:not(:placeholder-shown) + span::before {
     opacity: 1;
   }
-`
+`;
 
 export default function TextInput (props) {
   return (
     <label>
       <StyledTextInput
-        onInput={e => { if (props.sendValue) props.sendValue(e.target) }}
+        onInput={e => { if (props.sendValue) props.sendValue(e.target); }}
         type='text'
         maxLength='20'
         placeholder=' ' />
@@ -71,5 +71,5 @@ export default function TextInput (props) {
         {props.placeholder}
       </TextInputSpan>
     </label>
-  )
+  );
 }

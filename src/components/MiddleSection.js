@@ -1,6 +1,6 @@
-import React from 'react'
+import React from 'react';
 
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 const StyledMiddleSection = styled.div`
   display: flex;
@@ -12,12 +12,12 @@ const StyledMiddleSection = styled.div`
   flex-grow: 1;
   margin: auto;
   padding-bottom: ${props => props.theme.MiddleSectionBottomPadding ? props.theme.MiddleSectionBottomPadding : '0px'}
-`
+`;
 
 export default function Section (props) {
   return (
     <StyledMiddleSection>
       {props.children}
     </StyledMiddleSection>
-  )
+  );
 }

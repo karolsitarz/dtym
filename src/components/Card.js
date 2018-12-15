@@ -1,6 +1,6 @@
-import React from 'react'
+import React from 'react';
 
-import styled, { css } from 'styled-components'
+import styled, { css } from 'styled-components';
 
 const StyledCard = styled.div`
   position: fixed;
@@ -41,7 +41,7 @@ const StyledCard = styled.div`
       pointer-events: all;
     }
   `}
-`
+`;
 const Label = styled.div`
   width: 100%;
   height: 3em;
@@ -71,7 +71,7 @@ const Label = styled.div`
       opacity: 1;
     }
   `}
-`
+`;
 
 const Container = styled.div`
   padding: 1em;
@@ -83,7 +83,7 @@ const Container = styled.div`
   align-self: stretch;
   background-color: ${props => props.theme.backgroundColor};
   border-radius: 0 0 1.5em 1.5em;
-`
+`;
 
 const OpenButton = styled.span`
     color: ${props => props.theme.main_2};
@@ -107,7 +107,7 @@ const OpenButton = styled.span`
     opacity: 0;
     transform: translate3d(-50%,-50%,0) scale(0.5);
   `}
-`
+`;
 const CloseButton = styled.span`
     color: ${props => props.theme.white};
     position: absolute;
@@ -131,14 +131,14 @@ const CloseButton = styled.span`
     opacity: 1;
     transform: translate3d(-50%,-50%,0);
   `}
-`
+`;
 
 export default class Card extends React.Component {
   constructor (props) {
-    super(props)
+    super(props);
     this.state = {
       open: false
-    }
+    };
   }
   render () {
     return (
@@ -153,6 +153,6 @@ export default class Card extends React.Component {
           {this.props.children}
         </Container>
       </StyledCard>
-    )
+    );
   }
 }

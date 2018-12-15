@@ -1,8 +1,8 @@
-import React from 'react'
+import React from 'react';
 
-import styled from 'styled-components'
+import styled from 'styled-components';
 
-import InputLabel from './InputLabel'
+import InputLabel from './InputLabel';
 
 const ToggleContainer = styled.div`
   display: block;
@@ -12,7 +12,7 @@ const ToggleContainer = styled.div`
   border-radius: .875em;
   overflow: hidden;
   flex-shrink: 0;
-`
+`;
 
 const ToggleBackground = styled.div`
   height: 100%;
@@ -31,7 +31,7 @@ const ToggleBackground = styled.div`
     transform: scaleX(1) translateZ(0);
     opacity: 1;
   }
-`
+`;
 const ToggleIndicator = styled.div`
   height: calc(1.75em - 4px);
   width: calc(1.75em - 4px);
@@ -61,13 +61,13 @@ const ToggleIndicator = styled.div`
   input[type=checkbox]:checked + div &::before {
     opacity: 1;
   }
-`
+`;
 
 const Checkbox = styled.input`
   display: none;
   opacity: 0;
   pointer-events: none;
-`
+`;
 
 export default function ToggleInput (props) {
   if (props.label) {
@@ -79,7 +79,7 @@ export default function ToggleInput (props) {
           <ToggleIndicator />
         </ToggleContainer>
       </InputLabel>
-    )
+    );
   } else {
     return (
       <span>
@@ -89,6 +89,6 @@ export default function ToggleInput (props) {
           <ToggleIndicator />
         </ToggleContainer>
       </span>
-    )
+    );
   }
 }

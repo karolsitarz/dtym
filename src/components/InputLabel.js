@@ -1,6 +1,6 @@
-import React from 'react'
+import React from 'react';
 
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 const StyledToggle = styled.label`
   display: flex;
@@ -8,7 +8,7 @@ const StyledToggle = styled.label`
   justify-content: space-between;
   width: 100%;
   margin: 0.5em 0;
-`
+`;
 
 const FancySpan = styled.span`
   text-transform: uppercase;
@@ -17,7 +17,7 @@ const FancySpan = styled.span`
   font-weight: 700;
   padding-left: .2em;
   color: ${props => props.theme.main_4};
-`
+`;
 
 export default function InputLabel (props) {
   return (
@@ -27,5 +27,5 @@ export default function InputLabel (props) {
       </FancySpan>
       {props.children}
     </StyledToggle>
-  )
+  );
 }

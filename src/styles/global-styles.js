@@ -1,4 +1,4 @@
-import { injectGlobal } from 'styled-components'
+import { injectGlobal } from 'styled-components';
 
 injectGlobal`
   /* latin-ext */
@@ -75,4 +75,4 @@ injectGlobal`
     height: 100%;
     margin: auto;
   }
-`
+`;

@@ -3,7 +3,7 @@ const mainTheme = {
   main_3: `#868686`,
   main_4: `#666666`,
   main_5: `#555555`
-}
+};
 
 export default {
   light: Object.assign({}, mainTheme, {
@@ -26,4 +26,4 @@ export default {
     secondGradient: `linear-gradient(to right bottom, #4b5271 0%, #4c3b5f 100%)`,
     semiTransparentValue: '#00000028'
   })
-}
+};

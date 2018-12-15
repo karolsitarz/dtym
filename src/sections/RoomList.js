@@ -1,26 +1,22 @@
-import React from 'react'
+import React from 'react';
 
-import Button from '../components/Button'
-import Card from '../components/Card'
-import TextInput from '../components/TextInput'
-import Section from '../components/Section'
-import ScrollInput from '../components/ScrollInput'
-import MiddleSection from '../components/MiddleSection'
+import Button from '../components/Button';
+import Card from '../components/Card';
+import TextInput from '../components/TextInput';
+import Section from '../components/Section';
+import ScrollInput from '../components/ScrollInput';
+import MiddleSection from '../components/MiddleSection';
 
 module.exports = function (Socket) {
-  let i = {}
+  let i = {};
 
   const roomCreate = e => {
-    // Socket.comm('room_createRoom', {
-    //   name: i.roomName,
-    //   password: i.roomPassword
-    // })
-    console.log({
-      name: i.roomName.value,
-      password: i.roomPassword.value,
+    Socket.comm('room_createRoom', {
+      name: i.roomName ? i.roomName.value : '',
+      password: i.roomPassword ? i.roomPassword.value : '',
       slots: i.roomSlots
-    })
-  }
+    });
+  };
   return function RoomList (props) {
     if (props.currentSection === 'RoomList') {
       return (
@@ -48,9 +44,9 @@ module.exports = function (Socket) {
             </Button>
           </Card>
         </Section>
-      )
+      );
     } else {
-      return null
+      return null;
     }
-  }
-}
+  };
+};

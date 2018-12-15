@@ -1,8 +1,8 @@
-import React from 'react'
+import React from 'react';
 
-import styled from 'styled-components'
+import styled from 'styled-components';
 
-import ImageToURI from '../utils/ImageToURI'
+import ImageToURI from '../utils/ImageToURI';
 
 const StyledImageSelector = styled.label`
   margin: 2em 0 1em;
@@ -25,27 +25,27 @@ const StyledImageSelector = styled.label`
   & > input {
     display: none;
   }
-`
+`;
 
 export default class ImageSelector extends React.Component {
   constructor (props) {
-    super(props)
+    super(props);
     this.state = {
       image: undefined
-    }
-    this.handleOnChange = this.handleOnChange.bind(this)
+    };
+    this.handleOnChange = this.handleOnChange.bind(this);
   }
   componentWillMount () {
     if (typeof (this.props.initial) === 'string') {
-      this.state.image = this.props.initial
+      this.state.image = this.props.initial;
     }
   }
   handleOnChange (e) {
     ImageToURI(e.target, 200)
       .then(url => {
-        this.setState({ image: url })
-        this.props.success(url)
-      })
+        this.setState({ image: url });
+        this.props.success(url);
+      });
   }
   render () {
     return (
@@ -56,6 +56,6 @@ export default class ImageSelector extends React.Component {
           type='file'
           accept='image/*' />
       </StyledImageSelector>
-    )
+    );
   }
 }

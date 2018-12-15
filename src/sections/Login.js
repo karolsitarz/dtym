@@ -1,26 +1,26 @@
-import React from 'react'
+import React from 'react';
 
-import Button from '../components/Button'
-import TextInput from '../components/TextInput'
-import Section from '../components/Section'
-import ImageSelector from '../components/ImageSelector'
+import Button from '../components/Button';
+import TextInput from '../components/TextInput';
+import Section from '../components/Section';
+import ImageSelector from '../components/ImageSelector';
 
 module.exports = Socket =>
   class Login extends React.Component {
     componentWillMount () {
       this.loginPrompt = () => {
         Socket.comm('login_prompt', {
-          name: this.nameInput.value,
+          name: this.nameInput ? this.nameInput.value : '',
           avatar: window.localStorage['dtym_avatar']
-        })
-      }
+        });
+      };
 
       Socket.receive('login_success', data => {
-        window.localStorage['dtym_name'] = data.name
-        window.localStorage['dtym_avatar'] = data.avatar
-        window.localStorage['dtym_sessionKey'] = data.sessionKey
-        this.props.goToSection('RoomList')
-      })
+        window.localStorage['dtym_name'] = data.name;
+        window.localStorage['dtym_avatar'] = data.avatar;
+        window.localStorage['dtym_sessionKey'] = data.sessionKey;
+        this.props.goToSection('RoomList');
+      });
     }
     render () {
       if (this.props.currentSection === 'Login') {
@@ -44,9 +44,9 @@ module.exports = Socket =>
               all done
             </Button>
           </Section>
-        )
+        );
       } else {
-        return null
+        return null;
       }
     }
-  }
+  };

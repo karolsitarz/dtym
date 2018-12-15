@@ -1,6 +1,6 @@
-import React from 'react'
+import React from 'react';
 
-import styled, { ThemeProvider } from 'styled-components'
+import styled, { ThemeProvider } from 'styled-components';
 
 const StyledSection = styled.div`
   display: flex;
@@ -14,11 +14,11 @@ const StyledSection = styled.div`
   padding: 1em;
   transition: padding .3s ease;
   background: ${props => props.theme.backgroundColor};
-`
+`;
 
 const padding = {
   MiddleSectionBottomPadding: '3em'
-}
+};
 
 export default function Section (props) {
   return (
@@ -28,5 +28,5 @@ export default function Section (props) {
         {props.children}
       </StyledSection>
     </ThemeProvider>
-  )
+  );
 }

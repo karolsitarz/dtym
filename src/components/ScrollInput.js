@@ -1,11 +1,11 @@
-import React from 'react'
+import React from 'react';
 
-import styled from 'styled-components'
+import styled from 'styled-components';
 
-import { FTScroller as Scroller } from 'ftscroller'
+import { FTScroller as Scroller } from 'ftscroller';
 
-import { Infinite } from './Icons'
-import InputLabel from './InputLabel'
+import { Infinite } from './Icons';
+import InputLabel from './InputLabel';
 
 const ScrollCell = styled.div`
   display: flex;
@@ -21,7 +21,7 @@ const ScrollCell = styled.div`
   svg {
     height: 100%;
   }
-`
+`;
 
 const Scroll = styled.div`
   height: 32px;
@@ -34,7 +34,7 @@ const Scroll = styled.div`
   background: ${props => props.theme.bg_2};
   list-style-type: none;
   display: inline-block;
-`
+`;
 
 const ScrollContainer = styled.div`
   height: 32px;
@@ -57,12 +57,12 @@ const ScrollContainer = styled.div`
     transform: scale(1) translateZ(0);
     opacity: .4;
   }
-`
+`;
 // TODO get value based on index, dynamic delete unused cells
 export default class ScrollInput extends React.Component {
   constructor (props) {
-    super(props)
-    this.state = {}
+    super(props);
+    this.state = {};
   }
   componentDidMount () {
     this._scroll = new Scroller(this.DOMnode, {
@@ -75,19 +75,19 @@ export default class ScrollInput extends React.Component {
       disabledInputMethods: {
         scroll: true
       }
-    })
+    });
 
     const setNewValue = () => {
       // save current segment to a variable
-      const currentSegment = this._scroll.currentSegment.y
-      const cellElements = this.cellElements
+      const currentSegment = this._scroll.currentSegment.y;
+      const cellElements = this.cellElements;
 
       // get current segment, then access it and get its $value prop
-      this._scroll.value = cellElements[currentSegment].props.$value
+      this._scroll.value = cellElements[currentSegment].props.$value;
 
       // pass the value down to prop
-      if (this.props.sendValue) this.props.sendValue(this._scroll.value)
-    }
+      if (this.props.sendValue) this.props.sendValue(this._scroll.value);
+    };
     /*
     const cutOutCurrentValue = () => {
       // save current segment to a variable
@@ -124,25 +124,25 @@ export default class ScrollInput extends React.Component {
     }, { passive: true })
     */
     if (this.props.default) {
-      let scrollPos = 0
+      let scrollPos = 0;
       if (!isNaN(this.props.default)) {
-        if (this.props.random || this.props.infinity) scrollPos = 1 * this.props.default + 1
-        else scrollPos = this.props.default
+        if (this.props.random || this.props.infinity) scrollPos = 1 * this.props.default + 1;
+        else scrollPos = this.props.default;
       }
-      this._scroll.scrollTo(0, scrollPos * this.DOMnode.offsetHeight, 0)
+      this._scroll.scrollTo(0, scrollPos * this.DOMnode.offsetHeight, 0);
     }
 
     // set initial value
-    setNewValue()
+    setNewValue();
 
     // update value on segment change
     this._scroll.addEventListener('segmentdidchange', () => {
-      setNewValue()
-    }, { passive: true })
+      setNewValue();
+    }, { passive: true });
   }
 
   componentWillMount () {
-    let cellElements = []
+    let cellElements = [];
     // add infinity or random if needed
     if (this.props.infinity) {
       cellElements.push(
@@ -151,7 +151,7 @@ export default class ScrollInput extends React.Component {
           $value='infinity'>
           <Infinite />
         </ScrollCell>
-      )
+      );
     } else if (this.props.random) {
       cellElements.push(
         <ScrollCell
@@ -159,16 +159,16 @@ export default class ScrollInput extends React.Component {
           $value='random'>
           ?
         </ScrollCell>
-      )
+      );
     }
     // jesli min i max sa liczbami
     if (!isNaN(this.props.min) && !isNaN(this.props.max)) {
       for (let i = this.props.min; i <= this.props.max; i++) {
-        cellElements.push(<ScrollCell key={i} $value={i}>{i}</ScrollCell>)
+        cellElements.push(<ScrollCell key={i} $value={i}>{i}</ScrollCell>);
       }
     }
-    this.cellElements = cellElements
-    this.state.renderedCellElements = cellElements
+    this.cellElements = cellElements;
+    this.state.renderedCellElements = cellElements;
   }
 
   render () {
@@ -185,7 +185,7 @@ export default class ScrollInput extends React.Component {
             </Scroll>
           </ScrollContainer>
         </InputLabel>
-      )
+      );
     } else {
       return (
         <ScrollContainer>
@@ -197,7 +197,7 @@ export default class ScrollInput extends React.Component {
             </div>
           </Scroll>
         </ScrollContainer>
-      )
+      );
     }
   }
 }

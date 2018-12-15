@@ -1,5 +1,5 @@
-import React from 'react'
-import styled from 'styled-components'
+import React from 'react';
+import styled from 'styled-components';
 
 const StyledButton = styled.div`
   border-radius: 10000000px;
@@ -30,7 +30,7 @@ const StyledButton = styled.div`
     height: 1em;
     pointer-events: none;
   }
-`
+`;
 
 export default function Button (props) {
   return (
@@ -39,5 +39,5 @@ export default function Button (props) {
       primary={props.primary || null} >
       {props.children}
     </StyledButton>
-  )
+  );
 }
