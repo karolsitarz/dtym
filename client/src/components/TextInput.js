@@ -12,7 +12,7 @@ const TextInputSpan = styled.span`
   left: 50%;
   top: 50%;
   white-space: nowrap;
-  transition: transform .3s ease,opacity .3s ease;
+  transition: ${props => props.theme.transition({})};
   transform: translate3d(-50%,-50%,0);
   opacity: .5;
   color: ${props => props.theme.main_4};
@@ -28,7 +28,7 @@ const TextInputSpan = styled.span`
     left: 50%;
     transform: translate3d(-50%,-50%,0);
     border-radius: 100px;
-    transition: opacity .3s ease;
+    transition: ${props => props.theme.transition({ t: ['opacity'] })};
     opacity: 0;
   }
 `;

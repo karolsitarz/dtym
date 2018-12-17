@@ -12,7 +12,7 @@ const StyledSection = styled.div`
   max-width: 50em;
   margin: auto;
   padding: 1em;
-  transition: padding .3s ease;
+  transition: ${props => props.theme.transition({ t: ['padding'] })};
   /* background: ${props => props.theme.backgroundColor}; */
 `;
 

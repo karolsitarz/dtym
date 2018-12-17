@@ -7,7 +7,7 @@ import { Padlock, Check } from '../Icons';
 const PlateContainer = styled.div`
   align-self: stretch;
   margin: 0.5em 1.5em;
-  transition: transform .3s ease;
+  transition: ${props => props.theme.transition({ t: ['transform'] })};
   ${props => props['data-openpassword'] !== null && css`
     &[data-openpassword] ~ & {
       transform: translateY(2em);
@@ -66,7 +66,7 @@ const PasswordForm = styled.form`
   width: 100%;
   bottom: .5em;
   padding-top: 1em;
-  transition: transform .3s ease;
+  transition: ${props => props.theme.transition({ t: ['transform'] })};
 `;
 
 const PasswordInput = styled.input`
@@ -88,9 +88,7 @@ const StyledCheck = styled.div`
   bottom: 0;
   opacity: 0;
   pointer-events: none;
-  transition: 
-    opacity .3s ease,
-    transform .3s ease;
+  transition: ${props => props.theme.transition({})};
   transform: translate3d(-1em,0,0);
 
   > svg {

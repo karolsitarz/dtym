@@ -2,7 +2,8 @@ const mainTheme = {
   main_2: '#999999',
   main_3: `#868686`,
   main_4: `#666666`,
-  main_5: `#555555`
+  main_5: `#555555`,
+  transition: ({ d = '.3', e = 'ease', t = ['opacity', 'transform'] }) => t.map(c => `${c} ${d}s ${e}`).toString()
 };
 
 export default {

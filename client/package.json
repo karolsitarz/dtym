@@ -6,7 +6,7 @@
    "scripts": {
       "build": "webpack -p",
       "build-d": "webpack -d",
-      "hmr": "webpack-dev-server"
+      "start": "webpack-dev-server"
    },
    "keywords": [],
    "author": "",

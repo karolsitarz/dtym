@@ -9,7 +9,7 @@ const StyledCard = styled.div`
   left: 0;
   right: 0;
   flex-direction: column;
-  transition: transform .6s ease;
+  transition: ${props => props.theme.transition({ d: '.6' })};
   height: auto;
   width: calc(100vw - 2em);
   max-width: 20em;
@@ -29,7 +29,7 @@ const StyledCard = styled.div`
     width: 200vw;
     height: 200vh;
     display: block;
-    transition: opacity .6s ease;
+    transition: ${props => props.theme.transition({ d: '.6', t: ['opacity'] })};
     background: #00000040;
     opacity: 0;
     pointer-events: none;
@@ -64,7 +64,7 @@ const Label = styled.div`
     left: 0;
     right: 0;
     opacity: 0;
-    transition: opacity .4s ease;
+    transition: ${props => props.theme.transition({ d: '.4', t: ['opacity'] })};
   }
   
   ${props => props.$open && css`
@@ -92,7 +92,7 @@ const OpenButton = styled.span`
     left: 50%;
     top: 50%;
     transform: translate3d(-50%,-50%,0);
-    transition: transform .5s ease,opacity .5s ease;
+    transition: ${props => props.theme.transition({ d: '.5' })};
     white-space: nowrap;
     z-index: 2;
     will-change: transform;
@@ -115,7 +115,7 @@ const CloseButton = styled.span`
     left: 50%;
     top: 50%;
     transform: translate3d(-50%,-50%,0) scale(0.5);
-    transition: transform .5s ease,opacity .5s ease;
+    transition: ${props => props.theme.transition({ d: '.5' })};
     white-space: nowrap;
     z-index: 2;
     will-change: transform;

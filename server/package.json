@@ -9,7 +9,7 @@
       "build-d": "webpack -d",
       "us": "npm run build-d && npm run s",
       "us-p": "npm run build && npm run s",
-      "nodemon": "SET PORT=443&& nodemon src/server.js"
+      "start": "SET PORT=443&& nodemon src/server.js"
    },
    "keywords": [],
    "author": "",

@@ -11,7 +11,7 @@ const StyledButton = styled.div`
   letter-spacing: .3em;
   cursor: pointer;
   border: 0;
-  transition: transform .3s ease;
+  transition: ${props => props.theme.transition({})};
   display: inline-flex;
   flex-shrink: 0;
   justify-content: center;

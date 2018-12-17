@@ -39,7 +39,7 @@ const Scroll = styled.div`
 const ScrollContainer = styled.div`
   height: 32px;
   min-width: 3.5em;
-  transition: transform .3s ease;
+  transition: ${props => props.theme.transition({ t: ['transform'] })};
   transform: translateZ(0);
   z-index: 1;
 
@@ -53,7 +53,7 @@ const ScrollContainer = styled.div`
     position: absolute;
     content: "";
     border-radius: 1000px;
-    transition: transform .3s ease;
+    transition: ${props => props.theme.transition({ t: ['transform'] })};
     transform: scale(1) translateZ(0);
     opacity: .4;
   }
