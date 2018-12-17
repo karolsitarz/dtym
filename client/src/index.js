@@ -23,6 +23,7 @@ const RootStyle = styled.div`
 if (!window.localStorage['dtym_name']) window.localStorage['dtym_name'] = '';
 if (!window.localStorage['dtym_avatar']) window.localStorage['dtym_avatar'] = '';
 if (!window.localStorage['dtym_sessionKey']) window.localStorage['dtym_sessionKey'] = '';
+if (!window.localStorage['dtym_darkmode']) window.localStorage['dtym_darkmode'] = 'true';
 
 Socket.onopen = () => {
   // add socket commands
@@ -38,12 +39,13 @@ Socket.onopen = () => {
       super(props);
 
       this.state = {
-        darkMode: false,
+        darkMode: window.localStorage['dtym_darkmode'] === 'true',
         section: 'Login'
       };
     }
 
     onThemeChange () {
+      window.localStorage['dtym_darkmode'] = !this.state.darkMode;
       this.setState({ darkMode: !this.state.darkMode });
     }
 

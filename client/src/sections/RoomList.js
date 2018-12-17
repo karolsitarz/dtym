@@ -27,9 +27,9 @@ module.exports = socket => {
     componentWillMount () {
       this.roomCreate = e => {
         socket.comm('room_createRoom', {
-          name: this.i.roomName ? this.i.roomName.value : '',
-          password: this.i.roomPassword ? this.i.roomPassword.value : '',
-          slots: this.i.roomSlots
+          name: this.$roomName ? this.$roomName.value : '',
+          password: this.$roomPassword ? this.$roomPassword.value : '',
+          slots: this.$roomSlots
         });
       };
 
@@ -62,13 +62,13 @@ module.exports = socket => {
             </StyledList>
             <Card $isACard>
               <TextInput
-                sendValue={e => (this.i.roomName = e)}
+                $textInput={e => (this.$roomName = e)}
                 placeholder='room name' />
               <TextInput
-                sendValue={e => (this.i.roomPassword = e)}
+                $textInput={e => (this.$roomPassword = e)}
                 placeholder='room password' />
               <ScrollInput
-                sendValue={e => (this.i.roomSlots = e)}
+                $textInput={e => (this.$roomSlots = e)}
                 min={4} max={20} default={6} label='players no.' />
               <Button
                 onClick={e => this.roomCreate()}

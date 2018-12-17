@@ -7,11 +7,17 @@ import ImageSelector from '../components/login/ImageSelector';
 
 module.exports = socket =>
   class Login extends React.Component {
+    constructor (props) {
+      super(props);
+
+      this.$avatar = window.localStorage['dtym_avatar'] || '';
+    }
     componentWillMount () {
       this.loginPrompt = () => {
+        console.log(this.$nameInput.value, this.$avatar);
         socket.comm('login_prompt', {
-          name: this.nameInput ? this.nameInput.value : '',
-          avatar: window.localStorage['dtym_avatar']
+          name: this.$nameInput ? this.$nameInput.value : '',
+          avatar: this.$avatar
         });
       };
 
@@ -32,10 +38,11 @@ module.exports = socket =>
             <h4>What's your name?</h4>
             <ImageSelector
               initial={window.localStorage['dtym_avatar']}
-              success={url => (window.localStorage['dtym_avatar'] = url)} />
+              success={url => (this.$avatar = url)} />
             <TextInput
-              sendValue={e => (this.nameInput = e)}
-              placeholder='gowno xD' />
+              $textInput={e => (this.$nameInput = e)}
+              initial={window.localStorage['dtym_name']}
+              placeholder='your name' />
             <Button
               onClick={e => this.loginPrompt()}
               primary >
