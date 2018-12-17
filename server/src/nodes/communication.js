@@ -39,14 +39,13 @@ module.exports = (app, socket) => {
   // broadcast in room
   socket.commBroadcast = {
     room: roomName => {
-      const currentSocketID = socket.ID;
       if (roomName in app.ROOMS) {
         return {
           comm: (message = 'empty', data = '') => {
             if (typeof (message) === 'string') {
               for (let socketID in app.ROOMS[roomName].players) {
-                if (socketID !== currentSocketID) {
-                  app.USERS_REF[socket.ID].send(JSON.stringify({ message, data }));
+                if (socketID !== socket.ID) {
+                  app.USERS_REF[socketID].send(JSON.stringify({ message, data }));
                 }
               }
             }

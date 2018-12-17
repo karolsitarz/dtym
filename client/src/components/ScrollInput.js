@@ -176,7 +176,7 @@ export default class ScrollInput extends React.Component {
       return (
         <InputLabel label={this.props.label}>
           <ScrollContainer>
-            <Scroll innerRef={node => (this.DOMnode = node)}>
+            <Scroll ref={node => (this.DOMnode = node)}>
               <div className='ftscroller_container' >
                 <div className='ftscroller_y ftscroller_hwaccelerated' >
                   {this.state.renderedCellElements}
@@ -189,7 +189,7 @@ export default class ScrollInput extends React.Component {
     } else {
       return (
         <ScrollContainer>
-          <Scroll innerRef={node => (this.DOMnode = node)}>
+          <Scroll ref={node => (this.DOMnode = node)}>
             <div className='ftscroller_container' >
               <div className='ftscroller_y ftscroller_hwaccelerated' >
                 {this.state.renderedCellElements}

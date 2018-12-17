@@ -12,6 +12,7 @@ const StyledCard = styled.div`
   transition: transform .6s ease;
   height: auto;
   width: calc(100vw - 2em);
+  max-width: 20em;
   margin: auto;
   max-height: calc(100vh - 2em);
   display: flex;
@@ -23,9 +24,9 @@ const StyledCard = styled.div`
   ::before {
     content: "";
     position: fixed;
-    left: -1em;
+    left: -50vw;
     bottom: -1em;
-    width: 100vw;
+    width: 200vw;
     height: 200vh;
     display: block;
     transition: opacity .6s ease;

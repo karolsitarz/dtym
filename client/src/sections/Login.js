@@ -3,7 +3,7 @@ import React from 'react';
 import Button from '../components/Button';
 import TextInput from '../components/TextInput';
 import Section from '../components/Section';
-import ImageSelector from '../components/ImageSelector';
+import ImageSelector from '../components/login/ImageSelector';
 
 module.exports = socket =>
   class Login extends React.Component {

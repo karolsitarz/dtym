@@ -9,11 +9,11 @@ const StyledSection = styled.div`
   align-items: center;
   width: 100%;
   height: 100%;
-  max-width: 1200px;
+  max-width: 50em;
   margin: auto;
   padding: 1em;
   transition: padding .3s ease;
-  background: ${props => props.theme.backgroundColor};
+  /* background: ${props => props.theme.backgroundColor}; */
 `;
 
 const padding = {
@@ -23,7 +23,7 @@ const padding = {
 export default function Section (props) {
   return (
     <ThemeProvider
-      theme={props.children[props.children.length - 1].props.$isACard ? padding : {}}>
+      theme={props.children.some(e => e.props.$isACard) ? padding : {}}>
       <StyledSection>
         {props.children}
       </StyledSection>

@@ -1,4 +1,5 @@
 const webpack = require('webpack');
+const path = require('path');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
 
 module.exports = (env, argv) => [
@@ -16,7 +17,7 @@ module.exports = (env, argv) => [
       }]
     },
     devServer: {
-      contentBase: '../dist',
+      contentBase: '../../dist',
       hot: true,
       open: true,
       host: '127.0.0.1',
@@ -37,5 +38,10 @@ module.exports = (env, argv) => [
     performance: {
       hints: argv.mode === 'production' ? 'warning' : false
     },
-    devtool: argv.mode === 'production' ? 'none' : 'inline-source-map'
+    devtool: argv.mode === 'production' ? 'none' : 'inline-source-map',
+    output: {
+      path: path.join(__dirname, '../dist'),
+      filename: 'main.js',
+      publicPath: '/'
+    }
   }];

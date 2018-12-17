@@ -15,17 +15,21 @@ module.exports = socket => {
   // add a receive listener
   socket.receive = function (message, callback) {
     if (typeof (message) === 'string' && typeof (callback) === 'function') {
-      Events[message] = socket.addEventListener('message', (connection) => {
-        let data;
-        try {
-          data = JSON.parse(connection.data);
-        } catch (e) {
-          return;
-        }
-        if (data.message === message) {
-          callback(data.data);
-        }
-      });
+      const ifExists = message in Events;
+      Events[message] = callback;
+      if (!ifExists) {
+        socket.addEventListener('message', (connection) => {
+          let data;
+          try {
+            data = JSON.parse(connection.data);
+          } catch (e) {
+            return;
+          }
+          if (data.message === message) {
+            Events[message](data.data);
+          }
+        });
+      }
     }
   };
 

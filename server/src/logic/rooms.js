@@ -1,6 +1,11 @@
 const randomize = require('randomatic');
 
 module.exports = (app, socket) => {
+  const getRoomsCounter = () => {
+    app.ROOMNUMBER = ++app.ROOMNUMBER > 9999 ? 1000 : app.ROOMNUMBER;
+    return app.ROOMNUMBER;
+  };
+
   socket.joinRoom = (roomName) => {
     const room = app.ROOMS[roomName];
     // if socket is not in any room
@@ -20,7 +25,7 @@ module.exports = (app, socket) => {
       });
 
       // broadcast room-join info
-      socket.commBroadcast.room(roomName).comm('room_joinRoom_you', {
+      socket.commBroadcast.room(roomName).comm('room_joinRoom_else', {
         host: room.host,
         speaker: room.speaker,
         players: room.players
@@ -49,6 +54,7 @@ module.exports = (app, socket) => {
       this.name = data.name;
       this.password = data.password;
       this.slots = data.slots;
+      this.number = getRoomsCounter();
 
       this.players = {};
       this.playerCount = 0;
@@ -83,6 +89,10 @@ module.exports = (app, socket) => {
       if (this.speaker === ID) this.speaker = Object.keys(this.players)[0];
 
       return true;
+    }
+
+    validate (password) {
+      return password === this.password;
     }
   }
 

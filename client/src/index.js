@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 
 import styled, { ThemeProvider } from 'styled-components';
 
-import './styles/global-styles';
+import GlobalStyles from './styles/global-styles';
 import theme from './styles/theme';
 
 const Socket = new window.WebSocket(`ws://${window.location.hostname}:443`);
@@ -11,6 +11,7 @@ const Socket = new window.WebSocket(`ws://${window.location.hostname}:443`);
 const RootStyle = styled.div`
   height: 100%;
   width: 100%;
+  background: ${props => props.theme.backgroundColor};
 
   &,
   &::before,
@@ -55,6 +56,7 @@ Socket.onopen = () => {
         <ThemeProvider
           theme={theme[this.state.darkMode ? 'dark' : 'light']} >
           <RootStyle>
+            <GlobalStyles />
             <Login
               goToSection={name => this.onSectionChange(name)}
               currentSection={this.state.section}

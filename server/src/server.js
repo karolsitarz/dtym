@@ -8,7 +8,7 @@ const port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080;
 
 const randomize = require('randomatic');
 
-app.use(express.static(path.join(__dirname)));
+app.use(express.static(path.join(__dirname, '../../dist/')));
 
 // end of server setup
 
@@ -17,11 +17,12 @@ app.SYSTEM_ROOMS = {};
 app.ROOMS = {};
 app.USERS = {};
 app.USERS_REF = {};
+app.ROOMNUMBER = 999;
 let { USERS, USERS_REF } = app;
 
-app.NewUser = ID => {
-  USERS[ID] = {};
-  USERS_REF[ID] = {};
+app.NewUser = socket => {
+  USERS[socket.ID] = {};
+  USERS_REF[socket.ID] = socket;
 };
 
 app.DeleteUser = ID => {
@@ -44,7 +45,7 @@ console.DLog = (...msg) => {
 app.ws('/', (socket, req) => {
   socket.setMaxListeners(0);
   socket.ID = randomize('Aa0', 32);
-  app.NewUser(socket.ID);
+  app.NewUser(socket);
 
   console.DLog('CONNECT', socket.ID);
 
