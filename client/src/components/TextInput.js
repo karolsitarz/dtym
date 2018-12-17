@@ -63,7 +63,7 @@ export default function TextInput (props) {
   return (
     <label>
       <StyledTextInput
-        ref={e => props.$textInput(e)}
+        ref={e => props.$sendValue(e)}
         type='text'
         defaultValue={props.initial && props.initial.length <= 20 ? props.initial : ''}
         maxLength='20'

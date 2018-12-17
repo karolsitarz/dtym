@@ -86,7 +86,7 @@ export default class ScrollInput extends React.Component {
       this._scroll.value = cellElements[currentSegment].props.$value;
 
       // pass the value down to prop
-      if (this.props.sendValue) this.props.sendValue(this._scroll.value);
+      if (this.props.$sendValue) this.props.$sendValue(this._scroll.value);
     };
     /*
     const cutOutCurrentValue = () => {

@@ -40,7 +40,7 @@ module.exports = socket =>
               initial={window.localStorage['dtym_avatar']}
               success={url => (this.$avatar = url)} />
             <TextInput
-              $textInput={e => (this.$nameInput = e)}
+              $sendValue={e => (this.$nameInput = e)}
               initial={window.localStorage['dtym_name']}
               placeholder='your name' />
             <Button

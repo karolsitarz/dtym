@@ -26,6 +26,7 @@ module.exports = socket => {
     }
     componentWillMount () {
       this.roomCreate = e => {
+        console.log(this.$roomName, this.$roomPassword, this.$roomSlots);
         socket.comm('room_createRoom', {
           name: this.$roomName ? this.$roomName.value : '',
           password: this.$roomPassword ? this.$roomPassword.value : '',
@@ -39,8 +40,8 @@ module.exports = socket => {
       if (this.props.currentSection === 'RoomList') {
         return (
           <Section>
-            <Button>
-              siemano
+            <Button onClick={e => socket.comm('roomList_refresh')}>
+              refresh
             </Button>
             <StyledList>
               {this.state.rooms.map(e =>
@@ -62,13 +63,13 @@ module.exports = socket => {
             </StyledList>
             <Card $isACard>
               <TextInput
-                $textInput={e => (this.$roomName = e)}
+                $sendValue={e => (this.$roomName = e)}
                 placeholder='room name' />
               <TextInput
-                $textInput={e => (this.$roomPassword = e)}
+                $sendValue={e => (this.$roomPassword = e)}
                 placeholder='room password' />
               <ScrollInput
-                $textInput={e => (this.$roomSlots = e)}
+                $sendValue={e => (this.$roomSlots = e)}
                 min={4} max={20} default={6} label='players no.' />
               <Button
                 onClick={e => this.roomCreate()}
