@@ -40,6 +40,7 @@ export default createGlobalStyle`
     font-family: 'Montserrat', Helvetica, sans-serif;
     -webkit-tap-highlight-color: rgba(0,0,0,0);
     -webkit-tap-highlight-color: transparent;
+    color: ${props => props.theme.main_1}
   }
   *:not(input) {
     -webkit-touch-callout: none;
@@ -58,6 +59,7 @@ export default createGlobalStyle`
     width: 100%;
     height: 100%;
     overscroll-behavior: contain;
+    background: ${props => props.theme.backgroundColor};
   }
   h1, h2, h3, h4, h5, h6 {
     margin: 0;

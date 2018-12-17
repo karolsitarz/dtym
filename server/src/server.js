@@ -8,7 +8,8 @@ const port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080;
 
 const randomize = require('randomatic');
 
-app.use(express.static(path.join(__dirname, '../../dist/')));
+// app.use(express.static(path.join(__dirname, '../../dist/')));
+app.use(express.static(path.join(__dirname)));
 
 // end of server setup
 
