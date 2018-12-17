@@ -26,7 +26,6 @@ module.exports = socket => {
     }
     componentWillMount () {
       this.roomCreate = e => {
-        console.log(this.$roomName, this.$roomPassword, this.$roomSlots);
         socket.comm('room_createRoom', {
           name: this.$roomName ? this.$roomName.value : '',
           password: this.$roomPassword ? this.$roomPassword.value : '',

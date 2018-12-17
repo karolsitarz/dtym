@@ -27,6 +27,7 @@ app.NewUser = socket => {
 };
 
 app.DeleteUser = ID => {
+  USERS_REF[ID].leaveRoom();
   delete USERS[ID];
   delete USERS_REF[ID];
 };

@@ -17,9 +17,8 @@ const StyledCard = styled.div`
   max-height: calc(100vh - 2em);
   display: flex;
   align-items: center;
-  /* animation: stickyenter .4s ease backwards; */
   will-change: transform;
-  pointer-events: all;
+  pointer-events: auto;
 
   ::before {
     content: "";

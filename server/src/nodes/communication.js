@@ -45,7 +45,11 @@ module.exports = (app, socket) => {
             if (typeof (message) === 'string') {
               for (let socketID in app.ROOMS[roomName].players) {
                 if (socketID !== socket.ID) {
-                  app.USERS_REF[socketID].send(JSON.stringify({ message, data }));
+                  try {
+                    app.USERS_REF[socketID].send(JSON.stringify({ message, data }));
+                  } catch (err) {
+                    delete app.USERS_REF[socketID];
+                  }
                 }
               }
             }

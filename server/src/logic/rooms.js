@@ -33,7 +33,7 @@ module.exports = (app, socket) => {
     }
   };
 
-  socket.leaveRoom = (roomName) => {
+  socket.leaveRoom = (roomName = socket.currentRoom) => {
     // if socket is not in any room
     if (socket.currentRoom != null &&
       // and it's not in target room
@@ -51,6 +51,7 @@ module.exports = (app, socket) => {
       password: undefined,
       name: 'dtym_room'
     }) {
+      this.ID = data.ID;
       this.name = data.name;
       this.password = data.password;
       this.slots = data.slots;
@@ -81,7 +82,8 @@ module.exports = (app, socket) => {
       this.playerCount--;
 
       if (this.playerCount < 1) {
-        delete this;
+        // delete this;
+        delete app.ROOMS[this.ID];
         return true;
       }
 
@@ -106,13 +108,14 @@ module.exports = (app, socket) => {
           data.slots >= 4 &&
           data.slots <= 20) {
         // generate room hash
-        let roomName = randomize('Aa0', 5);
-        while (roomName in app.ROOMS) roomName = randomize('Aa0', 5);
+        let roomName = randomize('Aa0', 16);
+        while (roomName in app.ROOMS) roomName = randomize('Aa0', 16);
 
         app.ROOMS[roomName] = new Room({
           name: data.name,
           password: data.password,
-          slots: data.slots
+          slots: data.slots,
+          ID: roomName
         });
 
         socket.joinRoom(roomName);

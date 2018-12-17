@@ -12,7 +12,9 @@ const Socket = new window.WebSocket(`ws://${window.location.hostname}:443`);
 
 const RootStyle = styled.div`
   height: 100%;
-  width: 100%;`;
+  width: 100%;
+  overflow: hidden;
+`;
 
 // if localstorage is empty, setup some values
 if (!window.localStorage['dtym_name']) window.localStorage['dtym_name'] = '';

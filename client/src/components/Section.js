@@ -23,7 +23,7 @@ const padding = {
 export default function Section (props) {
   return (
     <ThemeProvider
-      theme={props.children.some(e => e.props.$isACard) ? padding : {}}>
+      theme={Array.isArray(props.children) && props.children.some(e => e.props.$isACard) ? padding : {}}>
       <StyledSection>
         {props.children}
       </StyledSection>
