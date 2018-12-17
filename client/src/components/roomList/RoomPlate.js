@@ -6,7 +6,16 @@ import { Padlock, Check } from '../Icons';
 
 const PlateContainer = styled.div`
   align-self: stretch;
-  margin: 0.5em 1.5em;
+  margin-left: 1.5em;
+  margin-right: 1.5em;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+  &:first-child {
+    margin-top: auto;
+  }
+  &:last-child {
+    margin-bottom: auto;
+  }
   transition: ${props => props.theme.transition({ t: ['transform'] })};
   ${props => props['data-openpassword'] !== null && css`
     &[data-openpassword] ~ & {
@@ -36,6 +45,7 @@ const RoomName = styled.span`
   letter-spacing: .2em;
   word-break: break-word;
   color: ${props => props.theme.white};
+  pointer-events: none;
 `;
 
 const SubInfo = styled.span`
@@ -46,6 +56,7 @@ const SubInfo = styled.span`
   opacity: 0.5;
   letter-spacing: .1em;
   word-break: break-word;
+  pointer-events: none;
   & > svg {
     height: 1em;
     width: 1em;

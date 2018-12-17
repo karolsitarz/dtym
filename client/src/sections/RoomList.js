@@ -8,6 +8,7 @@ import TextInput from '../components/TextInput';
 import Section from '../components/Section';
 import ScrollInput from '../components/ScrollInput';
 import RoomPlate from '../components/roomList/RoomPlate';
+import FancySpan from '../components/FancySpan';
 
 module.exports = socket => {
   return class RoomList extends React.Component {
@@ -42,6 +43,7 @@ module.exports = socket => {
             refresh
           </Button>
           <StyledList>
+            {!this.state.rooms.length ? (<FancySpan centered opacity>There are no rooms</FancySpan>) : null }
             {this.state.rooms.map(e =>
               <RoomPlate
                 key={e.id}
