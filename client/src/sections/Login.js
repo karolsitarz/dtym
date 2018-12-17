@@ -31,31 +31,27 @@ module.exports = socket =>
       });
     }
     render () {
-      if (this.props.currentSection === 'Login') {
-        return (
-          <Section>
-            <h1>Hi, there.</h1>
-            <h4>What's your name?</h4>
-            <ImageSelector
-              initial={window.localStorage['dtym_avatar']}
-              success={url => (this.$avatar = url)} />
-            <TextInput
-              $sendValue={e => (this.$nameInput = e)}
-              initial={window.localStorage['dtym_name']}
-              placeholder='your name' />
-            <Button
-              onClick={e => this.loginPrompt()}
-              primary >
-              that's me!
-            </Button>
-            <Button
-              onClick={e => this.props.themeChange(e)} >
-              all done
-            </Button>
-          </Section>
-        );
-      } else {
-        return null;
-      }
+      return (
+        <Section>
+          <h1>Hi, there.</h1>
+          <h4>What's your name?</h4>
+          <ImageSelector
+            initial={window.localStorage['dtym_avatar']}
+            success={url => (this.$avatar = url)} />
+          <TextInput
+            $sendValue={e => (this.$nameInput = e)}
+            initial={window.localStorage['dtym_name']}
+            placeholder='your name' />
+          <Button
+            onClick={e => this.loginPrompt()}
+            primary >
+            that's me!
+          </Button>
+          <Button
+            onClick={e => this.props.themeChange(e)} >
+            all done
+          </Button>
+        </Section>
+      );
     }
   };

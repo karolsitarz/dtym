@@ -37,51 +37,47 @@ module.exports = socket => {
       socket.receive('roomList_refresh', data => this.setState({ rooms: data }));
     }
     render () {
-      if (this.props.currentSection === 'RoomList') {
-        return (
-          <Section>
-            <Button onClick={e => socket.comm('roomList_refresh')}>
-              refresh
+      return (
+        <Section>
+          <Button onClick={e => socket.comm('roomList_refresh')}>
+            refresh
+          </Button>
+          <StyledList>
+            {this.state.rooms.map(e =>
+              <RoomPlate
+                key={e.id}
+                $id={e.id}
+                name={e.name}
+                slots={e.slots}
+                playerCount={e.playerCount}
+                number={e.number}
+                password={e.password}
+                $openPassword={el => {
+                  if (this.lastOpened && this.lastOpened !== el) this.lastOpened.setState({ open: false });
+                  this.lastOpened = el;
+                }}
+                $joinPrompt={e => this.joinPrompt(e)}
+              />
+            )}
+          </StyledList>
+          <Card $isACard>
+            <TextInput
+              $sendValue={e => (this.$roomName = e)}
+              placeholder='room name' />
+            <TextInput
+              $sendValue={e => (this.$roomPassword = e)}
+              placeholder='room password' />
+            <ScrollInput
+              $sendValue={e => (this.$roomSlots = e)}
+              min={4} max={20} default={6} label='players no.' />
+            <Button
+              onClick={e => this.roomCreate()}
+              primary>
+              create
             </Button>
-            <StyledList>
-              {this.state.rooms.map(e =>
-                <RoomPlate
-                  key={e.id}
-                  $id={e.id}
-                  name={e.name}
-                  slots={e.slots}
-                  playerCount={e.playerCount}
-                  number={e.number}
-                  password={e.password}
-                  $openPassword={el => {
-                    if (this.lastOpened && this.lastOpened !== el) this.lastOpened.setState({ open: false });
-                    this.lastOpened = el;
-                  }}
-                  $joinPrompt={e => this.joinPrompt(e)}
-                />
-              )}
-            </StyledList>
-            <Card $isACard>
-              <TextInput
-                $sendValue={e => (this.$roomName = e)}
-                placeholder='room name' />
-              <TextInput
-                $sendValue={e => (this.$roomPassword = e)}
-                placeholder='room password' />
-              <ScrollInput
-                $sendValue={e => (this.$roomSlots = e)}
-                min={4} max={20} default={6} label='players no.' />
-              <Button
-                onClick={e => this.roomCreate()}
-                primary>
-                create
-              </Button>
-            </Card>
-          </Section>
-        );
-      } else {
-        return null;
-      }
+          </Card>
+        </Section>
+      );
     }
   };
 };

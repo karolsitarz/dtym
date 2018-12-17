@@ -6,6 +6,8 @@ import styled, { ThemeProvider } from 'styled-components';
 import GlobalStyles from './styles/global-styles';
 import theme from './styles/theme';
 
+import Route from './components/Route';
+
 const Socket = new window.WebSocket(`ws://${window.location.hostname}:443`);
 
 const RootStyle = styled.div`
@@ -52,12 +54,14 @@ Socket.onopen = () => {
           theme={theme[this.state.darkMode ? 'dark' : 'light']} >
           <RootStyle>
             <GlobalStyles />
-            <Login
-              goToSection={name => this.onSectionChange(name)}
-              currentSection={this.state.section}
-              themeChange={e => this.onThemeChange()} />
-            <RoomList
-              currentSection={this.state.section} />
+            <Route for='Login' state={this.state.section}>
+              <Login
+                goToSection={name => this.onSectionChange(name)}
+                themeChange={e => this.onThemeChange()} />
+            </Route>
+            <Route for='RoomList' state={this.state.section}>
+              <RoomList />
+            </Route>
           </RootStyle>
         </ThemeProvider>
       );
