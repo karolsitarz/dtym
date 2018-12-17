@@ -21,3 +21,6 @@ yarn-error.log*
 # local production files
 _*/
 *.code-workspace
+
+# ignore dist
+dist/
