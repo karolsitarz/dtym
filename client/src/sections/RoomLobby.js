@@ -50,21 +50,22 @@ module.exports = socket => {
               />
             )}
           </MiddleSection>
-          <Card
-            label='game settings'
-            $isACard>
-            <ScrollInput
-              $sendValue={e => (this.$roomSlots = e)}
-              min={4} max={20} default={6} label='players no.' />
-            <Toggle
-              checked
-              label='Default settings' />
-            <Button
-              onClick={e => {}}
-              primary>
-              save
-            </Button>
-          </Card>
+          {this.state.host !== socket.ID
+            ? null : (<Card
+              label='game settings'
+              $isACard>
+              <ScrollInput
+                $sendValue={e => (this.$roomSlots = e)}
+                min={4} max={20} default={6} label='players no.' />
+              <Toggle
+                checked
+                label='Default settings' />
+              <Button
+                onClick={e => {}}
+                primary>
+                save
+              </Button>
+            </Card>)}
         </Section>
       );
     }
