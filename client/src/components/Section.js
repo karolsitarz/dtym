@@ -12,7 +12,6 @@ const StyledSection = styled.div`
   max-width: 50em;
   margin: auto;
   padding: 1em;
-  transition: ${props => props.theme.transition({ t: ['padding'] })};
 `;
 
 const padding = {
@@ -40,6 +39,7 @@ const StyledMiddleSection = styled.div`
   display: flex;
   flex-direction: column;
   padding-bottom: ${props => props.theme.MiddleSectionBottomPadding ? props.theme.MiddleSectionBottomPadding : '0px'};
+  transition: ${props => props.theme.transition({ t: ['padding'] })};
   
   > :first-child {
     margin-top: auto;

@@ -35,6 +35,10 @@ module.exports = socket => {
         this.props.$sc('RoomLobby');
       });
     }
+    componentDidMount () {
+      // refresh roomList
+      socket.comm('roomList_refresh');
+    }
     render () {
       return (
         <Section>

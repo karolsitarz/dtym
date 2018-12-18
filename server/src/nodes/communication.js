@@ -59,4 +59,23 @@ module.exports = (app, socket) => {
       };
     }
   };
+
+  // send to all in room
+  socket.commAll = {
+    room: roomName => {
+      return {
+        comm: (message = 'empty', data = '') => {
+          if (typeof (message) === 'string' && roomName in app.ROOMS) {
+            for (let socketID in app.ROOMS[roomName].players) {
+              try {
+                app.USERS_REF[socketID].send(JSON.stringify({ message, data }));
+              } catch (e) {
+                return;
+              }
+            }
+          }
+        }
+      };
+    }
+  };
 };

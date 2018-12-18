@@ -22,8 +22,6 @@ module.exports = socket =>
         window.localStorage['dtym_avatar'] = data.avatar;
         window.localStorage['dtym_sessionKey'] = data.sessionKey;
         this.props.$sc('RoomList');
-        // refresh roomList
-        socket.comm('roomList_refresh');
       });
     }
     render () {

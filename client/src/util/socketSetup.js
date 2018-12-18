@@ -21,7 +21,7 @@ module.exports = socket => {
       } else {
         clearTimeout(Debounce[message].t);
         Debounce[message].t = setTimeout(t => socket.comm(message, data), DEBOUNCE_DELAY);
-        consoleColor = '#2C7C26788';
+        consoleColor = '#2C7C2688';
       }
       Debounce[message].d = new Date();
 

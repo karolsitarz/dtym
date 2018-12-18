@@ -25,11 +25,7 @@ module.exports = (app, socket) => {
       });
 
       // broadcast room-join info
-      socket.commBroadcast.room(roomName).comm('room_joinRoom_else', {
-        host: room.host,
-        speaker: room.speaker,
-        players: room.players
-      });
+      socket.commBroadcast.room(roomName).comm('room_joinRoom_else', { [socket.ID]: app.USERS[socket.ID] });
     }
   };
 
@@ -51,7 +47,7 @@ module.exports = (app, socket) => {
       socket.commBroadcast.room(roomName).comm('room_leaveRoom_else', {
         host: room.host,
         speaker: room.speaker,
-        players: room.players
+        player: socket.ID
       });
     }
   };
@@ -133,4 +129,38 @@ module.exports = (app, socket) => {
       }
     }
   };
+
+  // COMMS
+
+  socket.receive('room_leaveRoom', data => socket.leaveRoom());
+
+  socket.receive('room_host_setSpeaker', playerID => {
+    if (!socket.currentRoom ||
+      !(socket.currentRoom in app.ROOMS) ||
+      app.ROOMS[socket.currentRoom].host !== socket.ID ||
+      app.ROOMS[socket.currentRoom].speaker === playerID) return;
+
+    app.ROOMS[socket.currentRoom].speaker = playerID;
+    socket.commAll.room(socket.currentRoom).comm('room_setSpeaker', playerID);
+  });
+
+  socket.receive('room_host_setHost', playerID => {
+    if (!socket.currentRoom ||
+      !(socket.currentRoom in app.ROOMS) ||
+      app.ROOMS[socket.currentRoom].host !== socket.ID ||
+      app.ROOMS[socket.currentRoom].host === playerID) return;
+
+    app.ROOMS[socket.currentRoom].host = playerID;
+    socket.commAll.room(socket.currentRoom).comm('room_setHost', playerID);
+  });
+
+  socket.receive('room_host_kick', playerID => {
+    if (!socket.currentRoom ||
+      !(socket.currentRoom in app.ROOMS) ||
+      app.ROOMS[socket.currentRoom].host !== socket.ID ||
+      !(playerID in app.ROOMS[socket.currentRoom].players) ||
+      app.ROOMS[socket.currentRoom].host === playerID) return;
+
+    app.USERS_REF[playerID].leaveRoom();
+  });
 };

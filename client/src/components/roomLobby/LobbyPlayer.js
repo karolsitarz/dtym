@@ -23,6 +23,7 @@ const UserData = styled.div`
   padding: 1em .5em;
   flex-grow: 0;
   flex-shrink: 0;
+  pointer-events: none;
 
   ::before {
     content: "";
@@ -73,8 +74,8 @@ const Avatar = styled.img`
 
 const StyledHost = styled(Host)`
   position: absolute;
-  transform: translate(-50%,-100%) rotate(-20deg);
-  transform-origin: 50% calc(100% + 2.5em / 2);
+  transform: translate(-50%,-80%) rotate(-20deg);
+  transform-origin: 50% calc(80% + 2.5em / 2);
   height: .95em;
   top: 0;
   left: 50%;
@@ -100,6 +101,7 @@ const HostSettingsButton = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  pointer-events: auto;
 
   transition: ${props => !props.$open
     ? props.theme.transition({ t: ['transform'], d: '.4', dy: '.05' })
@@ -144,9 +146,10 @@ const StyledSettingsButton = styled.div`
   margin: 0 .1em;
   flex-basis: 0;
   transform-origin: right;
+  pointer-events: auto;
   background-color: ${props => props.theme.semiTransparentValue};
   border-bottom-style: solid;
-  border-bottom-color: ${props => props.theme[`g_${props.$border}`]}
+  border-bottom-color: ${props => props.theme[`g_${props.$border}`]}88;
 
   > svg {
     fill: ${props => props.theme.main_4};
@@ -154,6 +157,7 @@ const StyledSettingsButton = styled.div`
     max-width: 1.5em;
     width: 100%;
     padding-bottom: .2em;
+    pointer-events: none;
   }
 
   > span {
@@ -163,11 +167,13 @@ const StyledSettingsButton = styled.div`
     line-height: 1em;
     text-transform: uppercase;
     letter-spacing: .05em;
+    pointer-events: none;
   }
 `;
 
 const SettingsButton = props => (
   <StyledSettingsButton
+    onClick={d => props.onClick()}
     $border={props.$p} >
     {<props.icon />}
     <span>{props.label}</span>
@@ -180,15 +186,35 @@ export default class LobbyPlayer extends React.Component {
     this.state = { open: false };
     this.ID = props.ID;
   }
+  componentDidUpdate () {
+    if (!this.props.isHost && this.state.open) this.setState({ open: false });
+  }
   render () {
     return (
       <Container>
         <StyledSettings>
           {this.props.host
-            ? (<SettingsButton $p='50' label='set as speaker' icon={Speaker} />)
-            : ([<SettingsButton $p='25' label='set as speaker' icon={Speaker} />,
-              <SettingsButton $p='50' label='transfer host' icon={Host} />,
-              <SettingsButton $p='75' label='kick the user' icon={Door} />])}
+            ? (<SettingsButton
+              onClick={e => this.props.$setSpeaker(this.ID)}
+              $p='50'
+              label='set as speaker'
+              icon={Speaker} />)
+            : ([
+              <SettingsButton
+                onClick={e => this.props.$setSpeaker(this.ID)}
+                $p='25'
+                label='set as speaker'
+                icon={Speaker} />,
+              <SettingsButton
+                onClick={e => this.props.$setHost(this.ID)}
+                $p='50'
+                label='transfer host'
+                icon={Host} />,
+              <SettingsButton
+                onClick={e => this.props.$kickUser(this.ID)}
+                $p='75'
+                label='kick the user'
+                icon={Door} />])}
         </StyledSettings>
         <UserData
           $host={this.props.host}
