@@ -13,14 +13,13 @@ const StyledSection = styled.div`
   margin: auto;
   padding: 1em;
   transition: ${props => props.theme.transition({ t: ['padding'] })};
-  /* background: ${props => props.theme.backgroundColor}; */
 `;
 
 const padding = {
   MiddleSectionBottomPadding: '3em'
 };
 
-export default function Section (props) {
+export function Section (props) {
   return (
     <ThemeProvider
       theme={Array.isArray(props.children) && props.children.some(e => e.props.$isACard) ? padding : {}}>
@@ -28,5 +27,32 @@ export default function Section (props) {
         {props.children}
       </StyledSection>
     </ThemeProvider>
+  );
+}
+
+// Middle Section
+
+const StyledMiddleSection = styled.div`
+  width: 100%;
+  flex-grow: 1;
+  margin: auto;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: ${props => props.theme.MiddleSectionBottomPadding ? props.theme.MiddleSectionBottomPadding : '0px'};
+
+  & > :first-child {
+    margin-top: auto;
+  }
+  & > :last-child {
+    margin-bottom: auto;
+  }
+`;
+
+export function MiddleSection (props) {
+  return (
+    <StyledMiddleSection>
+      {props.children}
+    </StyledMiddleSection>
   );
 }

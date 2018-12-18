@@ -23,8 +23,8 @@ module.exports = socket => {
       }
       Debounce[message].d = new Date();
     }
-    // add outgoing colored console log
     /* devstrip:start */
+    // add outgoing colored console log
     console.log(`%c→ ${message}`, 'color: #2C7C26', data);
     /* devstrip:end */
   };
@@ -36,8 +36,8 @@ module.exports = socket => {
     } catch (e) {
       return;
     }
-    // add incoming colored console log
     /* devstrip:start */
+    // add incoming colored console log
     console.log(`\t%c← ${data.message}`, 'color: #7C2626', data);
     /* devstrip:end */
 

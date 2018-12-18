@@ -1,11 +1,9 @@
 import React from 'react';
 
-import styled from 'styled-components';
-
 import Button from '../components/form/Button';
 import Card from '../components/Card';
 import TextInput from '../components/form/TextInput';
-import Section from '../components/Section';
+import { Section, MiddleSection } from '../components/Section';
 import ScrollInput from '../components/form/ScrollInput';
 import RoomPlate from '../components/roomList/RoomPlate';
 import FancySpan from '../components/FancySpan';
@@ -42,7 +40,7 @@ module.exports = socket => {
           <Button onClick={e => socket.comm('roomList_refresh')}>
             refresh
           </Button>
-          <StyledList>
+          <MiddleSection>
             {!this.state.rooms.length ? (<FancySpan centered opacity>There are no rooms</FancySpan>) : null }
             {this.state.rooms.map(e =>
               <RoomPlate
@@ -60,7 +58,7 @@ module.exports = socket => {
                 $joinPrompt={e => this.joinPrompt(e)}
               />
             )}
-          </StyledList>
+          </MiddleSection>
           <Card $isACard>
             <TextInput
               $sendValue={e => (this.$roomName = e)}
@@ -82,13 +80,3 @@ module.exports = socket => {
     }
   };
 };
-
-const StyledList = styled.div`
-  width: 100%;
-  flex-grow: 1;
-  margin: auto;
-  overflow: auto;
-  display: flex;
-  flex-direction: column;
-  padding-bottom: ${props => props.theme.MiddleSectionBottomPadding ? props.theme.MiddleSectionBottomPadding : '0px'}
-`;

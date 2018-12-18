@@ -34,14 +34,25 @@ module.exports = (app, socket) => {
   };
 
   socket.leaveRoom = (roomName = socket.currentRoom) => {
+    const room = app.ROOMS[roomName];
     // if socket is not in any room
     if (socket.currentRoom != null &&
       // and it's not in target room
-      (socket.ID in app.ROOMS[roomName].players)) {
-      if (app.ROOMS[roomName].leave(socket.ID)) {
-        // set current room to target
-        socket.currentRoom = null;
-      }
+      (socket.ID in room.players) &&
+      // try to leave room
+      room.leave(socket.ID)) {
+      // set current room to target
+      socket.currentRoom = null;
+
+      // send the socket info that it left room
+      socket.comm('room_leaveRoom_you');
+
+      // broadcast room-leave info
+      socket.commBroadcast.room(roomName).comm('room_leaveRoom_else', {
+        host: room.host,
+        speaker: room.speaker,
+        players: room.players
+      });
     }
   };
 
