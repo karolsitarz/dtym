@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 import { FTScroller as Scroller } from 'ftscroller';
 
-import { Infinite } from './Icons';
+import { Infinite } from '../../util/Icons';
 import InputLabel from './InputLabel';
 
 const ScrollCell = styled.div`

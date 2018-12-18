@@ -2,7 +2,7 @@ import React from 'react';
 
 import styled from 'styled-components';
 
-import FancySpan from './FancySpan';
+import FancySpan from '../FancySpan';
 
 const StyledToggle = styled.label`
   display: flex;

@@ -1,7 +1,7 @@
 import React from 'react';
 
-import Button from '../components/Button';
-import TextInput from '../components/TextInput';
+import Button from '../components/form/Button';
+import TextInput from '../components/form/TextInput';
 import Section from '../components/Section';
 import ImageSelector from '../components/login/ImageSelector';
 

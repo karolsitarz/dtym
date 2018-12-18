@@ -6,7 +6,7 @@ import styled, { ThemeProvider } from 'styled-components';
 import GlobalStyles from './styles/global-styles';
 import theme from './styles/theme';
 
-import Route from './components/Route';
+import Route from './util/Route';
 
 const Socket = new window.WebSocket(`ws://${window.location.hostname}:443`);
 

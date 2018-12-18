@@ -2,11 +2,11 @@ import React from 'react';
 
 import styled from 'styled-components';
 
-import Button from '../components/Button';
+import Button from '../components/form/Button';
 import Card from '../components/Card';
-import TextInput from '../components/TextInput';
+import TextInput from '../components/form/TextInput';
 import Section from '../components/Section';
-import ScrollInput from '../components/ScrollInput';
+import ScrollInput from '../components/form/ScrollInput';
 import RoomPlate from '../components/roomList/RoomPlate';
 import FancySpan from '../components/FancySpan';
 

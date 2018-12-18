@@ -2,7 +2,7 @@ import React from 'react';
 
 import styled, { css } from 'styled-components';
 
-import { Padlock, Check } from '../Icons';
+import { Padlock, Check } from '../../util/Icons';
 
 const PlateContainer = styled.div`
   align-self: stretch;
