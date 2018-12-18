@@ -2,7 +2,7 @@ import React from 'react';
 
 import styled from 'styled-components';
 
-import { Host, Speaker, Menu } from '../../util/Icons';
+import { Host, SpeakerWave, Menu, Speaker, Door } from '../../util/Icons';
 
 const Container = styled.div`
   box-shadow: 0 -1px 0 0 ${props => props.theme.bg_2};
@@ -84,7 +84,7 @@ const StyledHost = styled(Host)`
   }
 `;
 
-const StyledSpeaker = styled(Speaker)`
+const StyledSpeaker = styled(SpeakerWave)`
   position: absolute;
   top: 0px;
   left: 50%;
@@ -111,7 +111,7 @@ const HostSettingsButton = styled.div`
 const StyledMenuIcon = styled(Menu)`
   width: 1.2em;
   height: 1.2em;
-  fill: ${props => props.theme.main_5};
+  fill: ${props => props.theme.semi_2};
 `;
 
 // SETTINGS
@@ -131,6 +131,49 @@ const StyledSettings = styled.div`
   padding: 0 .5em;
 `;
 
+const StyledSettingsButton = styled.div`
+  border-radius: 1em;
+  height: 3.5em;
+  min-width: 4em;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  cursor: pointer;
+  margin: 0 .1em;
+  flex-basis: 0;
+  transform-origin: right;
+  background-color: ${props => props.theme.semiTransparentValue};
+  border-bottom-style: solid;
+  border-bottom-color: ${props => props.theme[`g_${props.$border}`]}
+
+  > svg {
+    fill: ${props => props.theme.main_4};
+    max-height: 1.5em;
+    max-width: 1.5em;
+    width: 100%;
+    padding-bottom: .2em;
+  }
+
+  > span {
+    color: ${props => props.theme.main_4};
+    font-weight: 700;
+    font-size: .55em;
+    line-height: 1em;
+    text-transform: uppercase;
+    letter-spacing: .05em;
+  }
+`;
+
+const SettingsButton = props => (
+  <StyledSettingsButton
+    $border={props.$p} >
+    {<props.icon />}
+    <span>{props.label}</span>
+  </StyledSettingsButton>
+);
+
 export default class LobbyPlayer extends React.Component {
   constructor (props) {
     super(props);
@@ -142,8 +185,10 @@ export default class LobbyPlayer extends React.Component {
       <Container>
         <StyledSettings>
           {this.props.host
-            ? ('aaaaaaa')
-            : ('sssssssss')}
+            ? (<SettingsButton $p='50' label='set as speaker' icon={Speaker} />)
+            : ([<SettingsButton $p='25' label='set as speaker' icon={Speaker} />,
+              <SettingsButton $p='50' label='transfer host' icon={Host} />,
+              <SettingsButton $p='75' label='kick the user' icon={Door} />])}
         </StyledSettings>
         <UserData
           $host={this.props.host}

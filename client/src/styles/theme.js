@@ -16,6 +16,9 @@ const mainTheme = {
 
   gradientStart: '#667eea',
   gradientEnd: '#764ba2',
+  g_25: '#6877e1',
+  g_50: '#6e65c6',
+  g_75: '#7452ab',
   mainGradient: 'linear-gradient(to bottom right, #667eea 0%, #764ba2 100%)',
   secondGradient: `linear-gradient(to bottom right, #d2d9f9 0%, #d6c7e5 100%)`,
 
