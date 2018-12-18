@@ -4,11 +4,9 @@
    "description": "",
    "main": "server.js",
    "scripts": {
-      "s": "SET IP=127.0.0.1&& SET PORT=443&& node dist/server.js",
+      "s": "SET IP=127.0.0.1&& SET PORT=443&& node ../dist/server.js",
       "build": "webpack -p",
       "build-d": "webpack -d",
-      "us": "npm run build-d && npm run s",
-      "us-p": "npm run build && npm run s",
       "start": "SET PORT=443&& nodemon src/server.js"
    },
    "keywords": [],

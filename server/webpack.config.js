@@ -19,7 +19,7 @@ module.exports = (env, argv) => [{
   },
   devtool: argv.mode === 'production' ? 'none' : 'inline-source-map',
   output: {
-    path: path.join(__dirname, '../../dist'),
+    path: path.join(__dirname, '../dist'),
     filename: 'server.js',
     publicPath: '/'
   }

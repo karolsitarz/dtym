@@ -14,7 +14,6 @@ module.exports = socket =>
     }
     componentWillMount () {
       this.loginPrompt = () => {
-        console.log(this.$nameInput.value, this.$avatar);
         socket.comm('login_prompt', {
           name: this.$nameInput ? this.$nameInput.value : '',
           avatar: this.$avatar

@@ -24,9 +24,9 @@ module.exports = socket => {
       Debounce[message].d = new Date();
     }
     // add outgoing colored console log
-    if (window.localStorage['dtym_debug'] === 'true') {
-      console.log(`%c→ ${message}`, 'color: #2C7C26', data);
-    }
+    /* devstrip:start */
+    console.log(`%c→ ${message}`, 'color: #2C7C26', data);
+    /* devstrip:end */
   };
 
   socket.addEventListener('message', (connection) => {
@@ -36,12 +36,14 @@ module.exports = socket => {
     } catch (e) {
       return;
     }
+    // add incoming colored console log
+    /* devstrip:start */
+    console.log(`\t%c← ${data.message}`, 'color: #7C2626', data);
+    /* devstrip:end */
+
+    // execute callback
     if (data.message in Events) {
       Events[data.message](data.data);
-    }
-    // add incoming colored console log
-    if (window.localStorage['dtym_debug'] === 'true') {
-      console.log(`\t%c← ${data.message}`, 'color: #7C2626', data);
     }
   });
 

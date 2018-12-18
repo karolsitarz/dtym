@@ -11,9 +11,15 @@ module.exports = (env, argv) => [
       rules: [{
         test: /\.js$/,
         exclude: /node_modules/,
-        use: {
+        use: [{
+          loader: 'webpack-strip-block',
+          options: {
+            start: 'devstrip:start',
+            end: 'devstrip:end'
+          }
+        }, {
           loader: 'babel-loader'
-        }
+        }]
       }]
     },
     devServer: {
