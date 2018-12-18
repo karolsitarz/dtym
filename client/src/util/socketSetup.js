@@ -15,18 +15,21 @@ module.exports = socket => {
           t: undefined
         };
       }
+      let consoleColor = '#2C7C26';
       if (new Date() - Debounce[message].d >= DEBOUNCE_DELAY) {
         this.send(JSON.stringify({ message, data }));
       } else {
         clearTimeout(Debounce[message].t);
         Debounce[message].t = setTimeout(t => socket.comm(message, data), DEBOUNCE_DELAY);
+        consoleColor = '#2C7C26788';
       }
       Debounce[message].d = new Date();
+
+      // add outgoing colored console log
+      if (window.localStorage['dtym_debug'] === 'true') {
+        console.log(`%c→ ${message}`, `color: ${consoleColor}`, data);
+      }
     }
-    /* devstrip:start */
-    // add outgoing colored console log
-    console.log(`%c→ ${message}`, 'color: #2C7C26', data);
-    /* devstrip:end */
   };
 
   socket.addEventListener('message', (connection) => {
@@ -36,10 +39,10 @@ module.exports = socket => {
     } catch (e) {
       return;
     }
-    /* devstrip:start */
     // add incoming colored console log
-    console.log(`\t%c← ${data.message}`, 'color: #7C2626', data);
-    /* devstrip:end */
+    if (window.localStorage['dtym_debug'] === 'true') {
+      console.log(`\t%c← ${data.message}`, 'color: #C11B1B', data);
+    }
 
     // execute callback
     if (data.message in Events) {
