@@ -39,23 +39,17 @@ module.exports = (app, socket) => {
   // broadcast in room
   socket.commBroadcast = {
     room: roomName => {
-      if (roomName in app.ROOMS) {
-        return {
-          comm: (message = 'empty', data = '') => {
-            if (typeof (message) === 'string') {
-              for (let socketID in app.ROOMS[roomName].players) {
-                if (socketID !== socket.ID) {
-                  try {
-                    app.USERS_REF[socketID].send(JSON.stringify({ message, data }));
-                  } catch (err) {
-                    delete app.USERS_REF[socketID];
-                  }
-                }
+      return {
+        comm: (message = 'empty', data = '') => {
+          if (typeof (message) === 'string' && roomName in app.ROOMS) {
+            for (let socketID in app.ROOMS[roomName].players) {
+              if (socketID !== socket.ID) {
+                app.USERS_REF[socketID].send(JSON.stringify({ message, data }));
               }
             }
           }
-        };
-      }
+        }
+      };
     }
   };
 };

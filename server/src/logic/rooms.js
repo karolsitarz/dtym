@@ -37,7 +37,7 @@ module.exports = (app, socket) => {
     const room = app.ROOMS[roomName];
     // if socket is not in any room
     if (socket.currentRoom != null &&
-      // and it's not in target room
+      // and it's in target room
       (socket.ID in room.players) &&
       // try to leave room
       room.leave(socket.ID)) {
