@@ -40,7 +40,6 @@ export default props => (
     classNames='section'
     unmountOnExit >
     <StyledDiv key={props.for}>
-      {/* {props.for === props.state ? props.children : null} */}
       {props.children}
     </StyledDiv>
   </CSSTransition>
