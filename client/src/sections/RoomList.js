@@ -18,12 +18,9 @@ module.exports = socket => {
         rooms: []
       };
       this.lastOpened = false;
-
       this.joinPrompt = data => {
         socket.comm('room_joinRoomPrompt', data);
       };
-    }
-    componentWillMount () {
       this.roomCreate = e => {
         socket.comm('room_createRoom', {
           name: this.$roomName ? this.$roomName.value : '',
@@ -31,8 +28,12 @@ module.exports = socket => {
           slots: this.$roomSlots
         });
       };
-
       socket.receive('roomList_refresh', data => this.setState({ rooms: data }));
+
+      socket.receive('room_joinRoom_you', data => {
+        this.props.$gd(data);
+        this.props.$sc('RoomLobby');
+      });
     }
     render () {
       return (
@@ -59,7 +60,9 @@ module.exports = socket => {
               />
             )}
           </MiddleSection>
-          <Card $isACard>
+          <Card
+            label='create a new room'
+            $isACard>
             <TextInput
               $sendValue={e => (this.$roomName = e)}
               placeholder='room name' />

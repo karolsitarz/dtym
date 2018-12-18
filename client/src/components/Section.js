@@ -40,11 +40,11 @@ const StyledMiddleSection = styled.div`
   display: flex;
   flex-direction: column;
   padding-bottom: ${props => props.theme.MiddleSectionBottomPadding ? props.theme.MiddleSectionBottomPadding : '0px'};
-
-  & > :first-child {
+  
+  > :first-child {
     margin-top: auto;
   }
-  & > :last-child {
+  > :last-child {
     margin-bottom: auto;
   }
 `;

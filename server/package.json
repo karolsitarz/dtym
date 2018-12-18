@@ -5,6 +5,7 @@
    "main": "server.js",
    "scripts": {
       "s": "SET IP=127.0.0.1&& SET PORT=443&& node ../dist/server.js",
+      "old": "SET IP=127.0.0.1&& SET PORT=443&& node ../dist/__project/server.js",
       "build": "webpack -p",
       "build-d": "webpack -d",
       "start": "SET PORT=443&& nodemon src/server.js"

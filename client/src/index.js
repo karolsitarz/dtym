@@ -7,6 +7,7 @@ import GlobalStyles from './styles/global-styles';
 import theme from './styles/theme';
 
 import Route from './util/Route';
+import { StandardGradient } from './util/Icons';
 
 const Socket = new window.WebSocket(`ws://${window.location.hostname}:443`);
 
@@ -29,6 +30,7 @@ Socket.onopen = () => {
   // add sections
   const Login = require('./sections/Login')(Socket);
   const RoomList = require('./sections/RoomList')(Socket);
+  const RoomLobby = require('./sections/RoomLobby')(Socket);
 
   // main App
   class App extends React.Component {
@@ -39,15 +41,18 @@ Socket.onopen = () => {
         darkMode: window.localStorage['dtym_darkmode'] === 'true',
         section: 'Login'
       };
+      // section change
+      this.$sc = name => this.setState({ section: name });
+      // global data
+      this.$gd = data => {
+        if (data !== undefined) this._$gd = data;
+        else return this._$gd;
+      };
     }
 
     onThemeChange () {
       window.localStorage['dtym_darkmode'] = !this.state.darkMode;
       this.setState({ darkMode: !this.state.darkMode });
-    }
-
-    onSectionChange (name) {
-      this.setState({ section: name });
     }
 
     render () {
@@ -57,13 +62,16 @@ Socket.onopen = () => {
           <RootStyle>
             <GlobalStyles />
             <Route for='Login' state={this.state.section}>
-              <Login
-                goToSection={name => this.onSectionChange(name)}
+              <Login $sc={this.$sc}
                 themeChange={e => this.onThemeChange()} />
             </Route>
             <Route for='RoomList' state={this.state.section}>
-              <RoomList />
+              <RoomList $sc={this.$sc} $gd={this.$gd} />
             </Route>
+            <Route for='RoomLobby' state={this.state.section}>
+              <RoomLobby $sc={this.$sc} $gd={this.$gd} />
+            </Route>
+            <StandardGradient />
           </RootStyle>
         </ThemeProvider>
       );

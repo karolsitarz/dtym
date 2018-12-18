@@ -12,12 +12,6 @@ module.exports = (env, argv) => [
         test: /\.js$/,
         exclude: /node_modules/,
         use: [{
-          loader: 'webpack-strip-block',
-          options: {
-            start: 'devstrip:start',
-            end: 'devstrip:end'
-          }
-        }, {
           loader: 'babel-loader'
         }]
       }]

@@ -146,8 +146,8 @@ export default class Card extends React.Component {
         <Label
           onClick={e => this.setState({ open: !this.state.open })}
           $open={this.state.open}>
-          <OpenButton $open={this.state.open} >create a new room</OpenButton>
-          <CloseButton $open={this.state.open} >close</CloseButton>
+          <OpenButton $open={this.state.open}>{this.props.label}</OpenButton>
+          <CloseButton $open={this.state.open}>close</CloseButton>
         </Label>
         <Container>
           {this.props.children}

@@ -17,7 +17,7 @@ const ToggleContainer = styled.div`
 const ToggleBackground = styled.div`
   height: 100%;
   width: 100%;
-  transition: ${props => props.theme.transition({ t: ['all'], e: '.4' })};
+  transition: ${props => props.theme.transition({ t: ['all'], d: '.4' })};
   background: ${props => props.theme.secondGradient};
   border-radius: 2em;
   position: absolute;
@@ -40,7 +40,7 @@ const ToggleIndicator = styled.div`
   top: 2px;
   left: 2px;
   border-radius: 50%;
-  transition: ${props => props.theme.transition({ t: ['transform'], e: '.4' })};
+  transition: ${props => props.theme.transition({ t: ['transform'], d: '.4' })};
   z-index: 2;
   transform: translateZ(0);
 
@@ -50,7 +50,7 @@ const ToggleIndicator = styled.div`
     width: 100%;
     height: 100%;
     border-radius: 50%;
-    transition: ${props => props.theme.transition({ t: ['opacity'], e: '.4' })};
+    transition: ${props => props.theme.transition({ t: ['opacity'], d: '.4' })};
     opacity: 0;
     background: ${props => props.theme.mainGradient};
   }
@@ -73,7 +73,7 @@ export default function ToggleInput (props) {
   if (props.label) {
     return (
       <InputLabel label={props.label}>
-        <Checkbox type='checkbox' />
+        <Checkbox type='checkbox' defaultChecked={!!props.checked} />
         <ToggleContainer>
           <ToggleBackground />
           <ToggleIndicator />

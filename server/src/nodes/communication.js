@@ -2,7 +2,10 @@ module.exports = (app, socket) => {
   // send event
   socket.comm = (message = '', data = '') => {
     if (typeof (message) === 'string') {
-      socket.send(JSON.stringify({ message, data }));
+      try {
+        socket.send(JSON.stringify({ message, data }));
+      } catch (e) {
+      }
     }
   };
 
@@ -44,7 +47,11 @@ module.exports = (app, socket) => {
           if (typeof (message) === 'string' && roomName in app.ROOMS) {
             for (let socketID in app.ROOMS[roomName].players) {
               if (socketID !== socket.ID) {
-                app.USERS_REF[socketID].send(JSON.stringify({ message, data }));
+                try {
+                  app.USERS_REF[socketID].send(JSON.stringify({ message, data }));
+                } catch (e) {
+                  return;
+                }
               }
             }
           }
