@@ -2,7 +2,7 @@ import React from 'react';
 
 import styled from 'styled-components';
 
-import { Host, Speaker } from '../../util/Icons';
+import { Host, Speaker, Menu } from '../../util/Icons';
 
 const Container = styled.div`
   box-shadow: 0 -1px 0 0 ${props => props.theme.bg_2};
@@ -23,7 +23,6 @@ const UserData = styled.div`
   padding: 1em .5em;
   flex-grow: 0;
   flex-shrink: 0;
-  transition: ${props => props.theme.transition({ t: ['transform'], d: '.5' })};
 
   ::before {
     content: "";
@@ -35,8 +34,11 @@ const UserData = styled.div`
     top: 0;
     border-radius: 0 1em 1em 0;
     transform-origin: left center;
-    transform: translateZ(0);
-    transition: ${props => props.theme.transition({ t: ['transform'], d: '.4' })};
+    transition: ${props => !props.$open
+    ? props.theme.transition({ t: ['transform'], d: '.4' })
+    : props.theme.transition({ t: ['transform'], d: '.4', dy: '.15' })};
+    transform: ${props => !props.$open ? 'translateZ(0)'
+    : (props.$host ? 'translate3d(-5.2em,0,0)' : 'translate3d(-13.6em,0,0)')}
   }
 `;
 
@@ -49,9 +51,12 @@ const PlayerName = styled.div`
   align-items: center;
   font-weight: 700;
   color: ${props => props.theme.main_1};
-  transition: ${props => props.theme.transition({ d: '.4', dy: '.2' })};
-  transform: translateZ(0);
-  opacity: 1;
+
+  transition: ${props => !props.$open
+    ? props.theme.transition({ d: '.4', dy: '.2' })
+    : props.theme.transition({ d: '.4' })};
+  transform: ${props => !props.$open ? 'translateZ(0)' : 'translate3d(-3em,0,0)'};
+  opacity: ${props => !props.$open ? 1 : 0}
 `;
 
 const AvContainer = styled.div`
@@ -86,7 +91,44 @@ const StyledSpeaker = styled(Speaker)`
   width: 2em;
   transform: translate(-50%, -100%) rotate(65deg);
   transform-origin: 50% calc(100% + 1.25em) 0px;
-  fill: ${props => props.theme.semi_2};
+  fill: ${props => props.theme.main_5};
+`;
+
+const HostSettingsButton = styled.div`
+  height: 3em;
+  width: 2em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  transition: ${props => !props.$open
+    ? props.theme.transition({ t: ['transform'], d: '.4', dy: '.05' })
+    : props.theme.transition({ t: ['transform'], d: '.4', dy: '.1' })};
+  transform: ${props => !props.$open ? 'translateZ(0)'
+    : (props.$host ? 'translate3d(-5.2em,0,0)' : 'translate3d(-13.6em,0,0)')}
+`;
+
+const StyledMenuIcon = styled(Menu)`
+  width: 1.2em;
+  height: 1.2em;
+  fill: ${props => props.theme.main_5};
+`;
+
+// SETTINGS
+
+const StyledSettings = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  background: ${props => props.theme.semi_0_5};
+  height: 5em;
+  overflow: hidden;
+  width: 100%;
+  border-radius: 0 1em 1em 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  padding: 0 .5em;
 `;
 
 export default class LobbyPlayer extends React.Component {
@@ -98,13 +140,28 @@ export default class LobbyPlayer extends React.Component {
   render () {
     return (
       <Container>
-        <UserData>
+        <StyledSettings>
+          {this.props.host
+            ? ('aaaaaaa')
+            : ('sssssssss')}
+        </StyledSettings>
+        <UserData
+          $host={this.props.host}
+          $open={this.state.open}>
           <AvContainer>
             <Avatar alt={this.props.name} src={this.props.avatar} />
             {this.props.host ? <StyledHost /> : null}
             {this.props.speaker ? <StyledSpeaker /> : null}
           </AvContainer>
-          <PlayerName>{this.props.name}</PlayerName>
+          <PlayerName $open={this.state.open}>{this.props.name}</PlayerName>
+          {!this.props.isHost ? null : (
+            <HostSettingsButton
+              $host={this.props.host}
+              $open={this.state.open}
+              onClick={e => this.setState({ open: !this.state.open })}>
+              <StyledMenuIcon />
+            </HostSettingsButton>
+          )}
         </UserData>
       </Container>
     );

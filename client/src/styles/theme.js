@@ -7,6 +7,7 @@ const mainTheme = {
 
   white: '#ffffff',
 
+  semi_0_5: '#00000007',
   semiTransparentValue: '#00000014',
   semi_2: '#00000028',
 
@@ -34,6 +35,7 @@ export default {
     gradientEnd: '#694f82',
     mainGradient: 'linear-gradient(to right bottom, #6377cf 0%, #694f82 100%)',
     secondGradient: `linear-gradient(to right bottom, #4b5271 0%, #4c3b5f 100%)`,
+    semi_0_5: '#00000014',
     semiTransparentValue: '#00000028',
     semi_2: '#00000042'
   })
