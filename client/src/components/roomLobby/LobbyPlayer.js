@@ -2,7 +2,7 @@ import React from 'react';
 
 import styled from 'styled-components';
 
-import { Host } from '../../util/Icons';
+import { Host, Speaker } from '../../util/Icons';
 
 const Container = styled.div`
   box-shadow: 0 -1px 0 0 ${props => props.theme.bg_2};
@@ -68,8 +68,8 @@ const Avatar = styled.img`
 
 const StyledHost = styled(Host)`
   position: absolute;
-  transform: translate(-50%,-80%) rotate(-20deg);
-  transform-origin: 50% calc(80% + 2.5em / 2);
+  transform: translate(-50%,-100%) rotate(-20deg);
+  transform-origin: 50% calc(100% + 2.5em / 2);
   height: .95em;
   top: 0;
   left: 50%;
@@ -77,6 +77,16 @@ const StyledHost = styled(Host)`
   > path {
     fill: url(#SG);
   }
+`;
+
+const StyledSpeaker = styled(Speaker)`
+  position: absolute;
+  top: 0px;
+  left: 50%;
+  width: 2em;
+  transform: translate(-50%, -100%) rotate(65deg);
+  transform-origin: 50% calc(100% + 1.25em) 0px;
+  fill: ${props => props.theme.semi_2};
 `;
 
 export default class LobbyPlayer extends React.Component {
@@ -91,7 +101,8 @@ export default class LobbyPlayer extends React.Component {
         <UserData>
           <AvContainer>
             <Avatar alt={this.props.name} src={this.props.avatar} />
-            {this.props.isHost ? <StyledHost /> : null}
+            {this.props.host ? <StyledHost /> : null}
+            {this.props.speaker ? <StyledSpeaker /> : null}
           </AvContainer>
           <PlayerName>{this.props.name}</PlayerName>
         </UserData>
