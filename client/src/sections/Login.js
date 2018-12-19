@@ -5,6 +5,8 @@ import TextInput from '../components/form/TextInput';
 import { Section } from '../components/Section';
 import ImageSelector from '../components/login/ImageSelector';
 
+import randomPerson from '../util/randomPerson';
+
 module.exports = socket =>
   class Login extends React.Component {
     constructor (props) {
@@ -23,6 +25,14 @@ module.exports = socket =>
         window.localStorage['dtym_sessionKey'] = data.sessionKey;
         this.props.$sc('RoomList');
       });
+
+      this.getRandom = async () => {
+        const { name, avatar } = await randomPerson();
+        socket.comm('login_prompt', {
+          name: name.slice(0, 20),
+          avatar
+        });
+      };
     }
     render () {
       return (
@@ -45,6 +55,11 @@ module.exports = socket =>
             onClick={e => this.props.themeChange(e)} >
             all done
           </Button>
+          {window.localStorage['dtym_debug'] !== 'true' ? null
+            : (<Button
+              onClick={e => this.getRandom()} >
+              get random
+            </Button>)}
         </Section>
       );
     }
