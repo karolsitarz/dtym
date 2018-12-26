@@ -3,12 +3,11 @@ const app = express();
 require('express-ws')(app);
 const path = require('path');
 
-const ipaddress = process.env.IP || process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0';
-const port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080;
+const ipaddress = process.env.IP || process.env.OPENSHIFT_NODEJS_IP || require('ip').address() || '127.0.0.1';
+const port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 443;
 
 const randomize = require('randomatic');
 
-// app.use(express.static(path.join(__dirname, '../../dist/')));
 app.use(express.static(path.join(__dirname)));
 
 // end of server setup

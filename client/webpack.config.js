@@ -20,7 +20,7 @@ module.exports = (env, argv) => [
       contentBase: '../../dist',
       hot: true,
       open: true,
-      host: '127.0.0.1',
+      host: require('ip').address(),
       port: '1234'
     },
     plugins: [
