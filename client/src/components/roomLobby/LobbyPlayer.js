@@ -92,7 +92,7 @@ const StyledSpeaker = styled(SpeakerWave)`
   width: 2em;
   transform: translate(-50%, -100%) rotate(65deg);
   transform-origin: 50% calc(100% + 1.25em) 0px;
-  fill: ${props => props.theme.main_5};
+  fill: ${props => props.theme.semiTransparentValue};
 `;
 
 const HostSettingsButton = styled.div`
@@ -113,7 +113,7 @@ const HostSettingsButton = styled.div`
 const StyledMenuIcon = styled(Menu)`
   width: 1.2em;
   height: 1.2em;
-  fill: ${props => props.theme.semi_2};
+  fill: ${props => props.theme.semiTransparentValue};
 `;
 
 // SETTINGS
