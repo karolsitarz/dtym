@@ -12,7 +12,7 @@ const ScrollCell = styled.div`
   justify-content: center;
   align-items: center;
   padding: .6em 1em;
-  height: 32px;
+  height: 40px;
   font-size: .85em;
   color: ${props => !isNaN(props.$value) ? props.theme.main_5 : props.theme.white};
   fill: ${props => !isNaN(props.$value) ? props.theme.main_5 : props.theme.white};
@@ -24,8 +24,8 @@ const ScrollCell = styled.div`
 `;
 
 const Scroll = styled.div`
-  height: 32px;
-  min-width: 3.5em;
+  height: 40px;
+  min-width: 4rem;
   overflow: hidden;
   border-radius: 1em;
   cursor: n-resize;
@@ -37,8 +37,8 @@ const Scroll = styled.div`
 `;
 
 const ScrollContainer = styled.div`
-  height: 32px;
-  min-width: 3.5em;
+  height: 40px;
+  min-width: 4rem;
   transition: ${props => props.theme.transition({ t: ['transform'] })};
   transform: translateZ(0);
   z-index: 1;

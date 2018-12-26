@@ -84,7 +84,7 @@ const PasswordInput = styled.input`
   letter-spacing: .1em;
 `;
 
-const StyledCheck = styled.div`
+const StyledCheck = styled.button`
   height: 2em;
   width: 2em;
   fill: ${props => props.theme.main_5};
@@ -95,6 +95,10 @@ const StyledCheck = styled.div`
   pointer-events: none;
   transition: ${props => props.theme.transition({})};
   transform: translate3d(-1em,0,0);
+  display: block;
+  background: transparent;
+  border: none;
+  font-size: inherit;
 
   > svg {
     pointer-events: none;
@@ -123,16 +127,17 @@ export default class InputLabel extends React.Component {
     return (
       <PlateContainer data-openpassword={this.state.open ? '' : null}>
         {this.props.password
-          ? (<PasswordForm>
+          ? (<PasswordForm onSubmit={e => {
+            e.preventDefault();
+            this.props.$joinPrompt({
+              name: this.props.$id,
+              password: this.passwordInput
+            });
+          }}>
             <PasswordInput
               placeholder='Password'
               onInput={e => (this.passwordInput = e.target.value)} />
-            <StyledCheck onClick={e => {
-              this.props.$joinPrompt({
-                name: this.props.$id,
-                password: this.passwordInput
-              });
-            }}>
+            <StyledCheck type='submit'>
               <Check />
             </StyledCheck>
           </PasswordForm>)
