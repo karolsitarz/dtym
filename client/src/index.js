@@ -52,15 +52,14 @@ Socket.onopen = () => {
       };
 
       // remove modal
-      this.$closemodal = modal => {
-        const index = this.state.modal.indexOf(modal);
-        this.setState({ modal: this.state.modal.slice(0, index).concat(this.state.modal.slice(index + 1)) });
+      this.$purgeModal = modal => {
+        this.state.modal.splice(this.state.modal.indexOf(modal), 1);
       };
 
       // add modal
       window.addEventListener('newModal', e => {
         const { title, desc, options } = e.detail;
-        this.setState({ modal: this.state.modal.concat([<Modal title={title} desc={desc} options={options} />]) });
+        this.setState({ modal: this.state.modal.concat([<Modal $purgeModal={e => this.$purgeModal(this)} title={title} desc={desc} options={options} />]) });
       });
     }
 
@@ -76,7 +75,7 @@ Socket.onopen = () => {
           <RootStyle>
             <GlobalStyles />
             {/* modals */}
-            {/* {this.state.modal.map(c => React.cloneElement(c, { $close: () => this.$closemodal(c) }))} */}
+            {/* {this.state.modal.map(c => React.cloneElement(c, { $purgeModal: () => this.$purgeModal(c) }))} */}
             {this.state.modal}
 
             {/* routes */}
