@@ -41,19 +41,7 @@ Socket.onopen = () => {
       this.state = {
         darkMode: window.localStorage['dtym_darkmode'] === 'true',
         section: 'Login',
-        modal: [(<Modal
-          title='Hey there!'
-          desc='Welcome back! Happy Lying!! This is a lorem ipsum.'
-          options={[{
-            text: 'Great!',
-            primary: true,
-            default: false,
-            action: () => console.log('aa')
-          }, {
-            text: 'No',
-            default: true,
-            timeout: 10
-          }]} />)]
+        modal: []
       };
       // section change
       this.$sc = name => this.setState({ section: name });
@@ -68,6 +56,12 @@ Socket.onopen = () => {
         const index = this.state.modal.indexOf(modal);
         this.setState({ modal: this.state.modal.slice(0, index).concat(this.state.modal.slice(index + 1)) });
       };
+
+      // add modal
+      window.addEventListener('newModal', e => {
+        const { title, desc, options } = e.detail;
+        this.setState({ modal: this.state.modal.concat([<Modal title={title} desc={desc} options={options} />]) });
+      });
     }
 
     onThemeChange () {

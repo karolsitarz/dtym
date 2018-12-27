@@ -56,7 +56,7 @@ const StyledModalButtons = styled.div`
 const StyledButton = styled.div`
   cursor: pointer;
   flex-grow: 1;
-  font-weight: ${props => props.primary ? 'bold' : 'initial'};
+  font-weight: ${props => props.default ? 'bold' : 'initial'};
   text-align: center;
   padding: 1em;
   display: flex;
@@ -101,7 +101,7 @@ export default class extends React.Component {
     for (let option of this.props.options) {
       this.options.push(
         <StyledButton
-          primary={option.primary === true}
+          default={option.default === true}
           onClick={() => this.selectOption(option.action)} >
           {option.default && option.timeout > 0.5 ? <CountdownBar delay={option.timeout} /> : null}
           {option.text}

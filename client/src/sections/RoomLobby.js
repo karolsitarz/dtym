@@ -58,6 +58,22 @@ module.exports = socket => {
     kickUser (playerID) {
       socket.comm('room_host_kick', playerID);
     }
+    leaveLobby () {
+      window.dispatchEvent(new window.CustomEvent('newModal', {
+        detail: {
+          title: 'Careful!',
+          desc: 'Are you sure you want to leave this room?',
+          options: [{
+            text: 'Yes',
+            action: () => socket.comm('room_leaveRoom')
+          }, {
+            text: 'No',
+            default: true,
+            timeout: 10
+          }]
+        }
+      }));
+    }
     render () {
       // rearrange so the socket is the first
       let keys = Object.keys(this.state.players);
@@ -66,7 +82,7 @@ module.exports = socket => {
 
       return (
         <Section>
-          <Button onClick={e => socket.comm('room_leaveRoom')}>
+          <Button onClick={e => this.leaveLobby()}>
             exit
           </Button>
           <MiddleSection>
