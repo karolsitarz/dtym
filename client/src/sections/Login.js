@@ -29,10 +29,9 @@ module.exports = socket =>
 
       this.getRandom = async () => {
         const { name, avatar } = await randomPerson();
-        socket.comm('login_prompt', {
-          name: name.slice(0, 20),
-          avatar
-        });
+        this.$nameInput.value = name.slice(0, 20);
+        this.$imageSelector.setState({ image: avatar });
+        this.$avatar = avatar;
       };
     }
     render () {
@@ -41,6 +40,7 @@ module.exports = socket =>
           <h1>Hi, there.</h1>
           <h4>What's your name?</h4>
           <ImageSelector
+            ref={e => (this.$imageSelector = e)}
             initial={window.localStorage['dtym_avatar']}
             success={url => (this.$avatar = url)} />
           <TextInput
