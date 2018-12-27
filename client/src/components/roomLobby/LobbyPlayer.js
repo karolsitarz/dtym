@@ -39,7 +39,8 @@ const UserData = styled.div`
     ? props.theme.transition({ t: ['transform'], d: '.4' })
     : props.theme.transition({ t: ['transform'], d: '.4', dy: '.15' })};
     transform: ${props => !props.$open ? 'translateZ(0)'
-    : (props.$host ? 'translate3d(-5.2em,0,0)' : 'translate3d(-13.6em,0,0)')}
+    : (props.$host ? 'translate3d(-5.2em,0,0)' : 'translate3d(-13.6em,0,0)')};
+    pointer-events: auto;
   }
 `;
 
@@ -206,12 +207,12 @@ export default class LobbyPlayer extends React.Component {
                 label='set as speaker'
                 icon={Speaker} />,
               <SettingsButton
-                onClick={e => this.props.$setHost(this.ID)}
+                onClick={e => this.props.$setHost({ ID: this.ID, name: this.props.name })}
                 $p='50'
                 label='transfer host'
                 icon={Host} />,
               <SettingsButton
-                onClick={e => this.props.$kickUser(this.ID)}
+                onClick={e => this.props.$kickUser({ ID: this.ID, name: this.props.name })}
                 $p='75'
                 label='kick the user'
                 icon={Door} />])}

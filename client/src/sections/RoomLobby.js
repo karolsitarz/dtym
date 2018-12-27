@@ -52,11 +52,37 @@ module.exports = socket => {
     setSpeaker (playerID) {
       socket.comm('room_host_setSpeaker', playerID);
     }
-    setHost (playerID) {
-      socket.comm('room_host_setHost', playerID);
+    setHost ({ ID, name }) {
+      window.dispatchEvent(new window.CustomEvent('newModal', {
+        detail: {
+          title: 'Careful!',
+          desc: <span>Are you sure you want to set <b>{name}</b> as this room's host? You will lose all your powers.</span>,
+          options: [{
+            text: 'Yes',
+            action: () => socket.comm('room_host_setHost', ID)
+          }, {
+            text: 'No',
+            default: true,
+            timeout: 10
+          }]
+        }
+      }));
     }
-    kickUser (playerID) {
-      socket.comm('room_host_kick', playerID);
+    kickUser ({ ID, name }) {
+      window.dispatchEvent(new window.CustomEvent('newModal', {
+        detail: {
+          title: 'Careful!',
+          desc: <span>Are you sure you want to kick <b>{name}</b> out of this room?</span>,
+          options: [{
+            text: 'Yes',
+            action: () => socket.comm('room_host_kick', ID)
+          }, {
+            text: 'No',
+            default: true,
+            timeout: 10
+          }]
+        }
+      }));
     }
     leaveLobby () {
       window.dispatchEvent(new window.CustomEvent('newModal', {
