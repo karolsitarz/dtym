@@ -6,7 +6,7 @@ const path = require('path');
 const ipaddress = process.env.IP || process.env.OPENSHIFT_NODEJS_IP || require('ip').address() || '127.0.0.1';
 const port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 443;
 
-const randomize = require('randomatic');
+const langParse = require('accept-language-parser');
 
 app.use(express.static(path.join(__dirname)));
 
@@ -44,12 +44,6 @@ console.DLog = (...msg) => {
 // end of global variable setup
 
 app.ws('/', (socket, req) => {
-  socket.setMaxListeners(0);
-  socket.ID = randomize('Aa0', 32);
-  app.NewUser(socket);
-
-  console.DLog('CONNECT', socket.ID);
-
   socket.on('close', () => {
     app.DeleteUser(socket.ID);
     console.DLog('DISCONNECT', socket.ID);
@@ -58,12 +52,11 @@ app.ws('/', (socket, req) => {
   // communication
   require('./nodes/communication')(app, socket);
   require('./nodes/login')(app, socket);
-  require('./nodes/roomList')(app, socket);
 
   // language send
   socket.comm('connect_setup', {
     ID: socket.ID,
-    lang: require('accept-language-parser').parse(req.headers['accept-language'])
+    lang: langParse.parse(req.headers['accept-language'])
   });
 });
 

@@ -20,6 +20,7 @@ module.exports = socket =>
         });
       };
       socket.receive('login_success', data => {
+        socket.ID = data.ID;
         window.localStorage['dtym_name'] = data.name;
         window.localStorage['dtym_avatar'] = data.avatar;
         window.localStorage['dtym_sessionKey'] = data.sessionKey;

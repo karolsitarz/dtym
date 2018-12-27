@@ -10,7 +10,7 @@ import Route from './util/Route';
 import { StandardGradient } from './util/Icons';
 import Modal from '../src/components/Modal';
 
-const Socket = new window.WebSocket(`ws://${window.location.hostname}:443`);
+const socket = new window.WebSocket(`ws://${window.location.hostname}:443`);
 
 const RootStyle = styled.div`
   height: 100%;
@@ -24,14 +24,14 @@ if (!window.localStorage['dtym_avatar']) window.localStorage['dtym_avatar'] = ''
 if (!window.localStorage['dtym_sessionKey']) window.localStorage['dtym_sessionKey'] = '';
 if (!window.localStorage['dtym_darkmode']) window.localStorage['dtym_darkmode'] = 'false';
 
-Socket.onopen = () => {
+socket.onopen = () => {
   // add socket commands
-  require('./util/socketSetup')(Socket);
+  require('./util/socketSetup')(socket);
 
   // add sections
-  const Login = require('./sections/Login')(Socket);
-  const RoomList = require('./sections/RoomList')(Socket);
-  const RoomLobby = require('./sections/RoomLobby')(Socket);
+  const Login = require('./sections/Login')(socket);
+  const RoomList = require('./sections/RoomList')(socket);
+  const RoomLobby = require('./sections/RoomLobby')(socket);
 
   // main App
   class App extends React.Component {
@@ -99,16 +99,13 @@ Socket.onopen = () => {
   }
 
   // on close event
-  Socket.onclose = () => {
+  socket.onclose = () => {
     Error('connection_lost');
     console.log('lol');
   };
 
   // when server sends language data
-  Socket.receive('connect_setup', data => {
-    // set ID
-    Socket.ID = data.ID;
-
+  socket.receive('connect_setup', data => {
     // TODO locale
 
     ReactDOM.render(<App />, document.getElementById('container'));
