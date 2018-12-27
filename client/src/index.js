@@ -76,7 +76,8 @@ Socket.onopen = () => {
           <RootStyle>
             <GlobalStyles />
             {/* modals */}
-            {this.state.modal.map(c => React.cloneElement(c, { $close: () => this.$closemodal(c) }))}
+            {/* {this.state.modal.map(c => React.cloneElement(c, { $close: () => this.$closemodal(c) }))} */}
+            {this.state.modal}
 
             {/* routes */}
             <Route for='Login' state={this.state.section}>

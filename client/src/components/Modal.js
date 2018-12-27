@@ -1,6 +1,8 @@
 import React from 'react';
-
+import { CSSTransition } from 'react-transition-group';
 import styled, { keyframes } from 'styled-components';
+
+const length = 300;
 
 const StyledModalContainer = styled.section`
   display: flex;
@@ -14,6 +16,21 @@ const StyledModalContainer = styled.section`
   top: 0;
   right: 0;
   bottom: 0;
+
+  transition: ${props => props.theme.transition({ d: `${length}m` })};
+
+  &.modal-enter {
+    opacity: 0;
+  }
+  &.modal-enter-active {
+    opacity: 1;
+  }
+  &.modal-exit {
+    opacity: 1;
+  }
+  &.modal-exit-active {
+    opacity: 0;
+  }
 `;
 
 const StyledModalBG = styled.div`
@@ -38,6 +55,21 @@ const StyledModal = styled.div`
   max-width: 90vw;
   min-width: 200px;
   overflow: hidden;
+  
+  transition: ${props => props.theme.transition({ d: `${length}m` })};
+
+  .modal-exit & {
+    transform: scale(1);
+  }
+  .modal-exit-active & {
+    transform: scale(0.9);
+  }
+  .modal-enter & {
+    transform: scale(0.9);
+  }
+  .modal-enter-active & {
+    transform: scale(1);
+  }
 `;
 
 const StyledModalText = styled.div`
@@ -97,6 +129,7 @@ export default class extends React.Component {
   constructor (props) {
     super(props);
     this.options = [];
+    this.state = { active: false };
 
     for (let option of this.props.options) {
       this.options.push(
@@ -115,29 +148,39 @@ export default class extends React.Component {
       }
     }
   }
+  componentDidMount () {
+    this.setState({ active: true });
+  }
   selectOption (action) {
     window.clearTimeout(this.timeout);
     if (action != null) action();
-    this.props.$close();
+    // this.props.$close();
+    this.setState({ active: false });
   }
   render () {
     return (
-      <StyledModalContainer>
-        <StyledModalBG onClick={() => this.selectOption(this.default)} />
-        <StyledModal>
-          <StyledModalText>
-            <StyledTitle>
-              {this.props.title}
-            </StyledTitle>
-            <StyledDesc>
-              {this.props.desc}
-            </StyledDesc>
-          </StyledModalText>
-          <StyledModalButtons>
-            {this.options}
-          </StyledModalButtons>
-        </StyledModal>
-      </StyledModalContainer>
+      <CSSTransition
+        in={this.state.active}
+        timeout={length}
+        classNames='modal'
+        unmountOnExit >
+        <StyledModalContainer>
+          <StyledModalBG onClick={() => this.selectOption(this.default)} />
+          <StyledModal>
+            <StyledModalText>
+              <StyledTitle>
+                {this.props.title}
+              </StyledTitle>
+              <StyledDesc>
+                {this.props.desc}
+              </StyledDesc>
+            </StyledModalText>
+            <StyledModalButtons>
+              {this.options}
+            </StyledModalButtons>
+          </StyledModal>
+        </StyledModalContainer>
+      </CSSTransition>
     );
   }
 }
