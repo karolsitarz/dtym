@@ -33,8 +33,10 @@ const StyledModal = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: #fff;
+  background-color: ${props => props.theme.backgroundColor};
   border-radius: 1em;
+  max-width: 90vw;
+  min-width: 200px;
 `;
 
 const StyledModalText = styled.div`
@@ -42,7 +44,7 @@ const StyledModalText = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 1em 2em;
+  padding: 2em;
 `;
 
 const StyledModalButtons = styled.div`
@@ -52,9 +54,25 @@ const StyledModalButtons = styled.div`
 
 const StyledButton = styled.div`
   cursor: pointer;
-  padding: .5em;
   flex-grow: 1;
   font-weight: ${props => props.primary ? 'bold' : 'initial'};
+  text-align: center;
+  padding: 1em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const StyledTitle = styled.div`
+  font-weight: bold;
+  width: 100%;
+  margin-bottom: 1em;
+  text-align: center;
+  font-size: 1.25em;
+`;
+
+const StyledDesc = styled.div`
+  text-align: center;
 `;
 
 export default class extends React.Component {
@@ -83,8 +101,12 @@ export default class extends React.Component {
         <StyledModalBG onClick={() => this.selectOption(this.default)} />
         <StyledModal>
           <StyledModalText>
-            {this.props.title}
-            {this.props.desc}
+            <StyledTitle>
+              {this.props.title}
+            </StyledTitle>
+            <StyledDesc>
+              {this.props.desc}
+            </StyledDesc>
           </StyledModalText>
           <StyledModalButtons>
             {this.options}

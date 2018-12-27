@@ -42,15 +42,15 @@ Socket.onopen = () => {
         darkMode: window.localStorage['dtym_darkmode'] === 'true',
         section: 'Login',
         modal: [(<Modal
-          title='aa'
-          desc='bbbb'
+          title='Hey there!'
+          desc='Welcome back! Happy Lying!! This is a lorem ipsum.'
           options={[{
-            text: 'option1',
+            text: 'Great!',
             primary: true,
             default: false,
             action: () => console.log('aa')
           }, {
-            text: 'option2',
+            text: 'No',
             default: true
           }]} />)]
       };
