@@ -163,8 +163,7 @@ export default class extends React.Component {
         in={this.state.active}
         timeout={length}
         classNames='modal'
-        unmountOnExit
-        onExit={e => this.props.$purgeModal()} >
+        onExited={e => this.props.$purgeModal()} >
         <StyledModalContainer>
           <StyledModalBG onClick={() => this.selectOption(this.default)} />
           <StyledModal>
