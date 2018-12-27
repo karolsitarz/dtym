@@ -54,6 +54,7 @@ const StyledModal = styled.div`
   border-radius: 1em;
   max-width: 90vw;
   min-width: 200px;
+  width: 20em;
   overflow: hidden;
   
   transition: ${props => props.theme.transition({ d: `${length}m` })};

@@ -13,6 +13,7 @@ const StyledButton = styled.div`
   border: 0;
   transition: ${props => props.theme.transition({})};
   display: inline-flex;
+  text-align: center;
   flex-shrink: 0;
   justify-content: center;
   align-items: center;
