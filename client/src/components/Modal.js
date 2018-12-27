@@ -1,6 +1,6 @@
 import React from 'react';
 
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 
 const StyledModalContainer = styled.section`
   display: flex;
@@ -37,6 +37,7 @@ const StyledModal = styled.div`
   border-radius: 1em;
   max-width: 90vw;
   min-width: 200px;
+  overflow: hidden;
 `;
 
 const StyledModalText = styled.div`
@@ -75,6 +76,23 @@ const StyledDesc = styled.div`
   text-align: center;
 `;
 
+const countdown = keyframes`
+  to {
+    transform: scaleX(0);
+  }
+`;
+
+const CountdownBar = styled.div`
+  position: absolute;
+  width: 100%;
+  left: 0;
+  bottom: 0;
+  pointer-events: none;
+  background: ${props => props.theme.mainGradient};
+  height: .25em;
+  animation: ${countdown} ${props => props.delay}s both linear;
+`;
+
 export default class extends React.Component {
   constructor (props) {
     super(props);
@@ -85,13 +103,20 @@ export default class extends React.Component {
         <StyledButton
           primary={option.primary === true}
           onClick={() => this.selectOption(option.action)} >
+          {option.default && option.timeout > 0.5 ? <CountdownBar delay={option.timeout} /> : null}
           {option.text}
         </StyledButton>
       );
-      if (option.default === true) this.default = option.action;
+      if (option.default === true) {
+        this.default = option.action;
+        if (!isNaN(option.timeout) && option.timeout > 0.5) {
+          this.timeout = window.setTimeout(() => this.selectOption(this.default), option.timeout * 1000);
+        }
+      }
     }
   }
   selectOption (action) {
+    window.clearTimeout(this.timeout);
     if (action != null) action();
     this.props.$close();
   }

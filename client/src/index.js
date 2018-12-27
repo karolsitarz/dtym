@@ -51,7 +51,8 @@ Socket.onopen = () => {
             action: () => console.log('aa')
           }, {
             text: 'No',
-            default: true
+            default: true,
+            timeout: 10
           }]} />)]
       };
       // section change
