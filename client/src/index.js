@@ -8,6 +8,7 @@ import theme from './styles/theme';
 
 import Route from './util/Route';
 import { StandardGradient } from './util/Icons';
+import Modal from '../src/components/Modal';
 
 const Socket = new window.WebSocket(`ws://${window.location.hostname}:443`);
 
@@ -21,7 +22,7 @@ const RootStyle = styled.div`
 if (!window.localStorage['dtym_name']) window.localStorage['dtym_name'] = '';
 if (!window.localStorage['dtym_avatar']) window.localStorage['dtym_avatar'] = '';
 if (!window.localStorage['dtym_sessionKey']) window.localStorage['dtym_sessionKey'] = '';
-if (!window.localStorage['dtym_darkmode']) window.localStorage['dtym_darkmode'] = 'true';
+if (!window.localStorage['dtym_darkmode']) window.localStorage['dtym_darkmode'] = 'false';
 
 Socket.onopen = () => {
   // add socket commands
@@ -39,14 +40,35 @@ Socket.onopen = () => {
 
       this.state = {
         darkMode: window.localStorage['dtym_darkmode'] === 'true',
-        section: 'Login'
+        section: 'Login',
+        modal: []
       };
+      this.state.modal.push(
+        <Modal
+          title='aa'
+          desc='bbbb'
+          options={[{
+            text: 'option1',
+            primary: true,
+            default: false,
+            action: () => console.log('aa')
+          }, {
+            text: 'option2',
+            default: true
+          }]} />
+      );
       // section change
       this.$sc = name => this.setState({ section: name });
       // global data
       this.$gd = data => {
         if (data !== undefined) this._$gd = data;
         else return this._$gd;
+      };
+
+      // remove modal
+      this.$closemodal = modal => {
+        console.log('close');
+        this.setState({ modal: this.state.modal.splice(this.state.modal.indexOf(modal), 1) });
       };
     }
 
@@ -61,6 +83,10 @@ Socket.onopen = () => {
           theme={theme[this.state.darkMode ? 'dark' : 'light']} >
           <RootStyle>
             <GlobalStyles />
+            {/* modals */}
+            {this.state.modal.map(c => React.cloneElement(c, { $close: () => this.$closemodal(c) }))}
+
+            {/* routes */}
             <Route for='Login' state={this.state.section}>
               <Login $sc={this.$sc}
                 themeChange={e => this.onThemeChange()} />
