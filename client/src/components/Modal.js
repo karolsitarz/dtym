@@ -2,7 +2,11 @@ import React from 'react';
 
 import styled from 'styled-components';
 
-const StyledModalBG = styled.div`
+const StyledModalContainer = styled.section`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
   position: absolute;
   width: 100vw;
   height: 100vh;
@@ -10,11 +14,17 @@ const StyledModalBG = styled.div`
   top: 0;
   right: 0;
   bottom: 0;
-  z-index: 1000;
+`;
+
+const StyledModalBG = styled.div`
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
   background-color: ${props => props.theme.semi_2};
-  display: flex;
-  justify-content: center;
-  align-items: center;
   cursor: pointer;
 `;
 
@@ -69,7 +79,8 @@ export default class extends React.Component {
   }
   render () {
     return (
-      <StyledModalBG onClick={() => this.selectOption(this.default)}>
+      <StyledModalContainer>
+        <StyledModalBG onClick={() => this.selectOption(this.default)} />
         <StyledModal>
           <StyledModalText>
             {this.props.title}
@@ -79,7 +90,7 @@ export default class extends React.Component {
             {this.options}
           </StyledModalButtons>
         </StyledModal>
-      </StyledModalBG>
+      </StyledModalContainer>
     );
   }
 }

@@ -41,10 +41,7 @@ Socket.onopen = () => {
       this.state = {
         darkMode: window.localStorage['dtym_darkmode'] === 'true',
         section: 'Login',
-        modal: []
-      };
-      this.state.modal.push(
-        <Modal
+        modal: [(<Modal
           title='aa'
           desc='bbbb'
           options={[{
@@ -55,8 +52,8 @@ Socket.onopen = () => {
           }, {
             text: 'option2',
             default: true
-          }]} />
-      );
+          }]} />)]
+      };
       // section change
       this.$sc = name => this.setState({ section: name });
       // global data
@@ -67,8 +64,8 @@ Socket.onopen = () => {
 
       // remove modal
       this.$closemodal = modal => {
-        console.log('close');
-        this.setState({ modal: this.state.modal.splice(this.state.modal.indexOf(modal), 1) });
+        const index = this.state.modal.indexOf(modal);
+        this.setState({ modal: this.state.modal.slice(0, index).concat(this.state.modal.slice(index + 1)) });
       };
     }
 
