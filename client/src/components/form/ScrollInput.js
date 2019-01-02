@@ -13,7 +13,7 @@ const ScrollCell = styled.div`
   justify-content: center;
   align-items: center;
   padding: .6em 1em;
-  height: 40px;
+  height: inherit;
   font-size: .85em;
   color: ${props => !isNaN(props.$value) ? props.theme.main_5 : props.theme.white};
   fill: ${props => !isNaN(props.$value) ? props.theme.main_5 : props.theme.white};
@@ -25,11 +25,10 @@ const ScrollCell = styled.div`
 `;
 
 const Scroll = styled.div`
-  height: 40px;
+  height: 2em;
   min-width: 4rem;
   overflow: hidden;
   border-radius: 1em;
-  cursor: n-resize;
   font-weight: 700;
   touch-action: manipulation;
   background: ${props => props.theme.bg_2};
@@ -38,7 +37,7 @@ const Scroll = styled.div`
 `;
 
 const ScrollContainer = styled.div`
-  height: 40px;
+  height: 2em;
   min-width: 4rem;
   transition: ${props => props.theme.transition({ t: ['transform'] })};
   transform: translateZ(0);
@@ -66,39 +65,6 @@ export default class ScrollInput extends React.Component {
     this.state = {
       slides: []
     };
-    // add infinity or random if needed
-    // if (props.infinity) {
-    //   this.cellElements.push(
-    //     <ScrollCell
-    //       className='swiper-slide'
-    //       key='infinity'
-    //       $value='infinity'>
-    //       <Infinite />
-    //     </ScrollCell>
-    //   );
-    // } else if (props.random) {
-    //   this.cellElements.push(
-    //     <ScrollCell
-    //       className='swiper-slide'
-    //       key='random'
-    //       $value='random'>
-    //       ?
-    //     </ScrollCell>
-    //   );
-    // }
-    // // jesli min i max sa liczbami
-    // if (!isNaN(props.min) && !isNaN(props.max)) {
-    //   for (let i = props.min; i <= props.max; i++) {
-    //     this.cellElements.push(
-    //       <ScrollCell
-    //         className='swiper-slide'
-    //         key={i}
-    //         $value={i}>
-    //         {i}
-    //       </ScrollCell>
-    //     );
-    //   }
-    // }
   }
   componentDidMount () {
     this.SCROLL = new Swiper(this.DOMnode, {
@@ -107,6 +73,23 @@ export default class ScrollInput extends React.Component {
       freeModeSticky: true,
       freeModeMomentumRatio: 0.75,
       freeModeMomentumVelocityRatio: 0.75,
+      grabCursor: true,
+      on: {
+        touchStart: e => (this.SCROLL.isStopped = false),
+        touchEnd: e => (this.SCROLL.isStopped = true),
+        transitionEnd: e => {
+          if (this.SCROLL.isStopped) {
+            // set value
+            setNewValue();
+          }
+        },
+        tap: e => {
+          if (this.SCROLL.isStopped) {
+            console.log('tap');
+            this.SCROLL.slideNext();
+          }
+        }
+      },
       virtual: {
         slides: ((() => {
           const slides = [];
@@ -138,6 +121,17 @@ export default class ScrollInput extends React.Component {
         }
       }
     });
+    this.SCROLL.isStopped = true;
+
+    const setNewValue = () => {
+      const { virtual, activeIndex, previousScrollIndex } = this.SCROLL;
+
+      // if the indexes are different
+      if (previousScrollIndex !== activeIndex) {
+        this.SCROLL.previousScrollIndex = activeIndex;
+        if (this.props.$sendValue) this.props.$sendValue(virtual.slides[activeIndex]);
+      }
+    };
 
     //   const setNewValue = () => {
     //     // save current segment to a variable
@@ -168,6 +162,8 @@ export default class ScrollInput extends React.Component {
     //     setNewValue();
     //   }, { passive: true });
     // }
+
+    window.s = this.DOMnode.swiper;
   }
   render () {
     if (this.props.label) {
