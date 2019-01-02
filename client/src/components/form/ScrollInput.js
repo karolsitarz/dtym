@@ -5,8 +5,7 @@ import styled from 'styled-components';
 import { Infinite } from '../../util/Icons';
 import InputLabel from './InputLabel';
 
-import { Swiper, Virtual } from 'swiper/dist/js/swiper.esm.js';
-Swiper.use([Virtual]);
+import { Swiper } from 'swiper/dist/js/swiper.esm.js';
 
 const ScrollCell = styled.div`
   display: flex;
@@ -58,12 +57,31 @@ const ScrollContainer = styled.div`
     opacity: .4;
   }
 `;
-// TODO get value based on index, dynamic delete unused cells
 export default class ScrollInput extends React.Component {
   constructor (props) {
     super(props);
     this.state = {
-      slides: []
+      slides: ((() => {
+        const generateJSX = c =>
+          (<ScrollCell
+            className='swiper-slide'
+            key={c}
+            $value={c}>
+            {!isNaN(c) ? c : (c === 'random' ? '?' : <Infinite />)}
+          </ScrollCell>);
+        const slides = [];
+        const { infinity, max, min, random } = this.props;
+
+        if (infinity) slides.push(generateJSX('infinity'));
+        else if (random) slides.push(generateJSX('random'));
+
+        if (!isNaN(min) && !isNaN(max)) {
+          for (let i = min; i <= max; i++) {
+            slides.push(generateJSX(i));
+          }
+        }
+        return slides;
+      })())
     };
   }
   componentDidMount () {
@@ -74,96 +92,33 @@ export default class ScrollInput extends React.Component {
       freeModeMomentumRatio: 0.75,
       freeModeMomentumVelocityRatio: 0.75,
       grabCursor: true,
+      initialSlide: (isNaN(this.props.default) || this.props.default * 1 !== -1) ? this.state.slides.findIndex(c => c.props.$value === this.props.default) : 0,
       on: {
         touchStart: e => (this.SCROLL.isStopped = false),
         touchEnd: e => (this.SCROLL.isStopped = true),
         transitionEnd: e => {
-          if (this.SCROLL.isStopped) {
-            // set value
+          if (!!this.SCROLL && this.SCROLL.isStopped) {
             setNewValue();
           }
         },
         tap: e => {
-          if (this.SCROLL.isStopped) {
-            console.log('tap');
+          if (!!this.SCROLL && this.SCROLL.isStopped) {
             this.SCROLL.slideNext();
           }
-        }
-      },
-      virtual: {
-        slides: ((() => {
-          const slides = [];
-          const { infinity, max, min, random } = this.props;
-
-          if (infinity) slides.push('infinity');
-          else if (random) slides.push('random');
-
-          if (!isNaN(min) && !isNaN(max)) {
-            for (let i = min; i <= max; i++) {
-              slides.push(i);
-            }
-          }
-          return slides;
-        })()),
-        renderExternal: ({ slides, offset }) => {
-          this.setState({
-            slides:
-            slides.map(c => (
-              <ScrollCell
-                className='swiper-slide'
-                style={{ top: `${offset}px` }}
-                key={c}
-                $value={c}>
-                {!isNaN(c) ? c : (c === 'random' ? '?' : <Infinite />)}
-              </ScrollCell>
-            ))
-          });
         }
       }
     });
     this.SCROLL.isStopped = true;
 
     const setNewValue = () => {
-      const { virtual, activeIndex, previousScrollIndex } = this.SCROLL;
-
+      const { activeIndex, previousScrollIndex } = this.SCROLL;
       // if the indexes are different
       if (previousScrollIndex !== activeIndex) {
         this.SCROLL.previousScrollIndex = activeIndex;
-        if (this.props.$sendValue) this.props.$sendValue(virtual.slides[activeIndex]);
+        if (this.props.$sendValue) this.props.$sendValue(this.state.slides[activeIndex].props.$value);
       }
     };
-
-    //   const setNewValue = () => {
-    //     // save current segment to a variable
-    //     const currentSegment = this._scroll.currentSegment.y;
-    //     const cellElements = this.cellElements;
-
-    //     // get current segment, then access it and get its $value prop
-    //     this._scroll.value = cellElements[currentSegment].props.$value;
-
-    //     // pass the value down to prop
-    //     if (this.props.$sendValue) this.props.$sendValue(this._scroll.value);
-    //   };
-
-    //   if (this.props.default) {
-    //     let scrollPos = 0;
-    //     if (!isNaN(this.props.default)) {
-    //       if (this.props.random || this.props.infinity) scrollPos = 1 * this.props.default + 1;
-    //       else scrollPos = this.props.default;
-    //     }
-    //     this._scroll.scrollTo(0, scrollPos * this.DOMnode.offsetHeight, 0);
-    //   }
-
-    //   // set initial value
-    //   setNewValue();
-
-    //   // update value on segment change
-    //   this._scroll.addEventListener('segmentdidchange', () => {
-    //     setNewValue();
-    //   }, { passive: true });
-    // }
-
-    window.s = this.DOMnode.swiper;
+    setNewValue();
   }
   render () {
     if (this.props.label) {
