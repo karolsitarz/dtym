@@ -101,7 +101,7 @@ socket.onopen = () => {
   // on close event
   socket.onclose = () => {
     Error('connection_lost');
-    console.log('lol');
+    console.error('Connection lost');
   };
 
   // when server sends language data

@@ -51,7 +51,7 @@ export default createGlobalStyle`
     user-select: none;
   }
   html {
-    font-size: 1.15em;
+    font-size: 1.25em;
   }
   html,body {
     padding: 0;
