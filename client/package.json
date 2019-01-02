@@ -24,12 +24,10 @@
    },
    "dependencies": {
       "exif-js": "^2.3.0",
-      "ftscroller": "^0.7.0",
       "react": "^16.5.2",
       "react-dom": "^16.5.2",
       "react-transition-group": "^2.5.1",
       "styled-components": "^4.1.3",
-      "styled-transition-group": "^1.0.0",
       "swiper": "^4.4.6"
    }
 }
