@@ -1,5 +1,6 @@
 import React from 'react';
 import { CSSTransition } from 'react-transition-group';
+import { connect } from 'react-redux';
 import styled from 'styled-components';
 
 const length = 400;
@@ -33,9 +34,9 @@ const StyledDiv = styled.div`
   }
 `;
 
-export default props => (
+const Route = props => (
   <CSSTransition
-    in={props.for === props.state}
+    in={props.for === props.section}
     timeout={length}
     classNames='section'
     unmountOnExit >
@@ -44,3 +45,7 @@ export default props => (
     </StyledDiv>
   </CSSTransition>
 );
+
+const mapStateToProps = state => ({ section: state.section });
+
+export default connect(mapStateToProps)(Route);

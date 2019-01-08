@@ -1,7 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-
 import styled, { ThemeProvider } from 'styled-components';
+import { Provider, connect } from 'react-redux';
+import { createStore } from 'redux';
+
+import reducers from './reducers';
+import { setSocket } from './actions';
 
 import GlobalStyles from './styles/global-styles';
 import theme from './styles/theme';
@@ -10,7 +14,12 @@ import Route from './util/Route';
 import { StandardGradient } from './util/Icons';
 import Modal from '../src/components/Modal';
 
+import Login from './sections/Login';
+
 const socket = new window.WebSocket(`ws://${window.location.hostname}:443`);
+const store = createStore(reducers);
+console.log(store);
+store.dispatch(setSocket(socket));
 
 const RootStyle = styled.div`
   height: 100%;
@@ -29,9 +38,8 @@ socket.onopen = () => {
   require('./util/socketSetup')(socket);
 
   // add sections
-  const Login = require('./sections/Login')(socket);
-  const RoomList = require('./sections/RoomList')(socket);
-  const RoomLobby = require('./sections/RoomLobby')(socket);
+  // const RoomList = require('./sections/RoomList')(socket);
+  // const RoomLobby = require('./sections/RoomLobby')(socket);
 
   // main App
   class App extends React.Component {
@@ -39,12 +47,8 @@ socket.onopen = () => {
       super(props);
 
       this.state = {
-        darkMode: window.localStorage['dtym_darkmode'] === 'true',
-        section: 'Login',
         modal: []
       };
-      // section change
-      this.$sc = name => this.setState({ section: name });
       // global data
       this.$gd = data => {
         if (data !== undefined) this._$gd = data;
@@ -65,38 +69,34 @@ socket.onopen = () => {
         this.setState({ modal: this.state.modal.concat([<Modal id={index} key={index} $purgeModal={() => this.$purgeModal(index)} title={title} desc={desc} options={options} />]) });
       });
     }
-
-    onThemeChange () {
-      window.localStorage['dtym_darkmode'] = !this.state.darkMode;
-      this.setState({ darkMode: !this.state.darkMode });
-    }
-
     render () {
       return (
         <ThemeProvider
-          theme={theme[this.state.darkMode ? 'dark' : 'light']} >
+          theme={theme[this.props.theme ? 'dark' : 'light']} >
           <RootStyle>
             <GlobalStyles />
             {/* modals */}
             {this.state.modal}
 
             {/* routes */}
-            <Route for='Login' state={this.state.section}>
-              <Login $sc={this.$sc}
-                themeChange={e => this.onThemeChange()} />
+            <Route for='Login'>
+              <Login />
             </Route>
-            <Route for='RoomList' state={this.state.section}>
-              <RoomList $sc={this.$sc} $gd={this.$gd} />
+            {/* <Route for='RoomList'>
+              <RoomList $gd={this.$gd} />
             </Route>
-            <Route for='RoomLobby' state={this.state.section}>
-              <RoomLobby $sc={this.$sc} $gd={this.$gd} />
-            </Route>
+            <Route for='RoomLobby'>
+              <RoomLobby $gd={this.$gd} />
+            </Route> */}
             <StandardGradient />
           </RootStyle>
         </ThemeProvider>
       );
     }
   }
+
+  const mapStateToProps = state => ({ theme: state.theme });
+  const Application = connect(mapStateToProps)(App);
 
   // on close event
   socket.onclose = () => {
@@ -108,6 +108,10 @@ socket.onopen = () => {
   socket.receive('connect_setup', data => {
     // TODO locale
 
-    ReactDOM.render(<App />, document.getElementById('container'));
+    ReactDOM.render((
+      <Provider store={store}>
+        <Application />
+      </Provider>),
+    document.getElementById('container'));
   });
 };
