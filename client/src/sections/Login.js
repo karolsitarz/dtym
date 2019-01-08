@@ -12,7 +12,7 @@ import randomPerson from '../util/randomPerson';
 class Login extends React.Component {
   constructor (props) {
     super(props);
-    const { socket } = this.props;
+    const { socket, changeSection } = this.props;
 
     this.$avatar = window.localStorage['dtym_avatar'] || '';
     this.loginPrompt = () => {
@@ -26,7 +26,7 @@ class Login extends React.Component {
       window.localStorage['dtym_name'] = data.name;
       window.localStorage['dtym_avatar'] = data.avatar;
       window.localStorage['dtym_sessionKey'] = data.sessionKey;
-      this.props.changeSection('RoomList');
+      changeSection('RoomList');
     });
 
     this.getRandom = async () => {

@@ -15,10 +15,11 @@ import { StandardGradient } from './util/Icons';
 import Modal from '../src/components/Modal';
 
 import Login from './sections/Login';
+import RoomList from './sections/RoomList';
+import RoomLobby from './sections/RoomLobby';
 
 const socket = new window.WebSocket(`ws://${window.location.hostname}:443`);
 const store = createStore(reducers);
-console.log(store);
 store.dispatch(setSocket(socket));
 
 const RootStyle = styled.div`
@@ -37,10 +38,6 @@ socket.onopen = () => {
   // add socket commands
   require('./util/socketSetup')(socket);
 
-  // add sections
-  // const RoomList = require('./sections/RoomList')(socket);
-  // const RoomLobby = require('./sections/RoomLobby')(socket);
-
   // main App
   class App extends React.Component {
     constructor (props) {
@@ -48,11 +45,6 @@ socket.onopen = () => {
 
       this.state = {
         modal: []
-      };
-      // global data
-      this.$gd = data => {
-        if (data !== undefined) this._$gd = data;
-        else return this._$gd;
       };
 
       // remove modal
@@ -79,15 +71,9 @@ socket.onopen = () => {
             {this.state.modal}
 
             {/* routes */}
-            <Route for='Login'>
-              <Login />
-            </Route>
-            {/* <Route for='RoomList'>
-              <RoomList $gd={this.$gd} />
-            </Route>
-            <Route for='RoomLobby'>
-              <RoomLobby $gd={this.$gd} />
-            </Route> */}
+            <Route for='Login' target={Login} />
+            <Route for='RoomList' target={RoomList} />
+            <Route for='RoomLobby' target={RoomLobby} />
             <StandardGradient />
           </RootStyle>
         </ThemeProvider>
@@ -105,8 +91,8 @@ socket.onopen = () => {
   };
 
   // when server sends language data
-  socket.receive('connect_setup', data => {
-    // TODO locale
+  socket.receive('connect_setup', ({ ID, lang }) => {
+    socket.ID = ID;
 
     ReactDOM.render((
       <Provider store={store}>

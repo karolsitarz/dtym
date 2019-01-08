@@ -28,8 +28,52 @@ const socketReducer = (currentSocket = null, action) => {
   return currentSocket;
 };
 
+const lobbyReducer = (currentData = { players: {}, host: '', speaker: '' }, action) => {
+  if (action.type === 'LOBBY_JOIN_YOU') {
+    const { players, host, speaker } = action.payload;
+    return { players, host, speaker };
+  }
+  if (action.type === 'LOBBY_LEAVE_YOU') return {};
+  if (action.type === 'LOBBY_JOIN_ELSE') {
+    return {
+      ...currentData,
+      players: {
+        ...currentData.players,
+        ...action.payload
+      }
+    };
+  }
+  if (action.type === 'LOBBY_LEAVE_ELSE') {
+    const { player, host, speaker } = action.payload;
+    const newPlayers = { ...currentData.players };
+    delete newPlayers[player];
+
+    return {
+      ...currentData,
+      players: newPlayers,
+      host,
+      speaker
+    };
+  }
+  if (action.type === 'LOBBY_UPDATE_HOST') {
+    return {
+      ...currentData,
+      host: action.payload
+    };
+  }
+  if (action.type === 'LOBBY_UPDATE_SPEAKER') {
+    return {
+      ...currentData,
+      speaker: action.payload
+    };
+  }
+
+  return currentData;
+};
+
 export default combineReducers({
   socket: socketReducer,
   theme: themeReducer,
-  section: sectionReducer
+  section: sectionReducer,
+  lobby: lobbyReducer
 });

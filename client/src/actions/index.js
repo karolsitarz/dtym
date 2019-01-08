@@ -12,3 +12,32 @@ export const setSocket = socket => ({
   type: 'SOCKET_SET',
   payload: socket
 });
+
+export const joinLobby = ({ players, host, speaker }) => ({
+  type: 'LOBBY_JOIN_YOU',
+  payload: { players, host, speaker }
+});
+
+export const leaveLobby = () => ({
+  type: 'LOBBY_LEAVE_YOU'
+});
+
+export const joinLobbyElse = player => ({
+  type: 'LOBBY_JOIN_ELSE',
+  payload: player
+});
+
+export const leaveLobbyElse = ({ player, host, speaker }) => ({
+  type: 'LOBBY_LEAVE_ELSE',
+  payload: { player, host, speaker }
+});
+
+export const updateLobbyHost = host => ({
+  type: 'LOBBY_UPDATE_HOST',
+  payload: host
+});
+
+export const updateLobbySpeaker = speaker => ({
+  type: 'LOBBY_UPDATE_SPEAKER',
+  payload: speaker
+});

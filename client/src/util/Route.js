@@ -41,7 +41,7 @@ const Route = props => (
     classNames='section'
     unmountOnExit >
     <StyledDiv key={props.for}>
-      {props.children}
+      {props.target ? <props.target /> : props.children}
     </StyledDiv>
   </CSSTransition>
 );

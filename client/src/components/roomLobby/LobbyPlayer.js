@@ -58,7 +58,7 @@ const PlayerName = styled.div`
     ? props.theme.transition({ d: '.4', dy: '.2' })
     : props.theme.transition({ d: '.4' })};
   transform: ${props => !props.$open ? 'translateZ(0)' : 'translate3d(-3em,0,0)'};
-  opacity: ${props => !props.$open ? 1 : 0}
+  opacity: ${props => !props.$open ? 1 : 0};
 `;
 
 const AvContainer = styled.div`
@@ -108,7 +108,7 @@ const HostSettingsButton = styled.div`
     ? props.theme.transition({ t: ['transform'], d: '.4', dy: '.05' })
     : props.theme.transition({ t: ['transform'], d: '.4', dy: '.1' })};
   transform: ${props => !props.$open ? 'translateZ(0)'
-    : (props.$host ? 'translate3d(-5.2em,0,0)' : 'translate3d(-13.6em,0,0)')}
+    : (props.$host ? 'translate3d(-5.2em,0,0)' : 'translate3d(-13.6em,0,0)')};
 `;
 
 const StyledMenuIcon = styled(Menu)`
