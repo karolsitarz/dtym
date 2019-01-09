@@ -25,9 +25,9 @@ class RoomList extends React.Component {
     };
     this.roomCreate = e => {
       socket.comm('room_createRoom', {
-        name: this.$roomName ? this.$roomName.value : '',
-        password: this.$roomPassword ? this.$roomPassword.value : '',
-        slots: this.$roomSlots
+        name: this.roomName || '',
+        password: this.roomPassword || '',
+        slots: this.roomSlots
       });
     };
     socket.receive('roomList_refresh', data => this.setState({ rooms: data }));
@@ -70,13 +70,13 @@ class RoomList extends React.Component {
           label='create a new room'
           $isACard>
           <TextInput
-            $sendValue={e => (this.$roomName = e)}
+            sendValue={e => (this.roomName = e)}
             placeholder='room name' />
           <TextInput
-            $sendValue={e => (this.$roomPassword = e)}
+            sendValue={e => (this.roomPassword = e)}
             placeholder='room password' />
           <ScrollInput
-            $sendValue={e => (this.$roomSlots = e)}
+            $sendValue={e => (this.roomSlots = e)}
             min={4} max={20} default={6} label='players no.' />
           <Button
             onClick={e => this.roomCreate()}

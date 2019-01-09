@@ -5,7 +5,7 @@ import { Provider, connect } from 'react-redux';
 import { createStore } from 'redux';
 
 import reducers from './reducers';
-import { setSocket } from './actions';
+import { setSocket, createModal } from './actions';
 
 import GlobalStyles from './styles/global-styles';
 import theme from './styles/theme';
@@ -47,7 +47,7 @@ socket.onopen = () => {
         {/* modals */}
         {props.modal.map(({ id, title, desc, options }) => (
           <Modal
-            id={id}
+            _id={id}
             key={id}
             title={title}
             desc={desc}
@@ -71,8 +71,17 @@ socket.onopen = () => {
 
   // on close event
   socket.onclose = () => {
-    Error('connection_lost');
     console.error('Connection lost');
+    store.dispatch(createModal({
+      title: 'Oh no!',
+      desc: 'Connection lost...',
+      options: [{
+        text: 'OK',
+        default: true,
+        timeout: 10,
+        action: () => window.location.reload()
+      }]
+    }));
   };
 
   // when server sends language data

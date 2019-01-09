@@ -14,11 +14,11 @@ class Login extends React.Component {
     super(props);
     const { socket, changeSection } = this.props;
 
-    this.$avatar = window.localStorage.dtym_avatar || '';
+    this.avatar = window.localStorage.dtym_avatar || '';
     this.loginPrompt = () => {
       socket.comm('login_prompt', {
-        name: this.$nameInput ? this.$nameInput.value : '',
-        avatar: this.$avatar
+        name: this.nameInput || '',
+        avatar: this.avatar
       });
     };
     socket.receive('login_success', data => {
@@ -31,9 +31,9 @@ class Login extends React.Component {
 
     this.getRandom = async () => {
       const { name, avatar } = await randomPerson();
-      this.$nameInput.value = name.slice(0, 20);
-      this.$imageSelector.setState({ image: avatar });
-      this.$avatar = avatar;
+      this.nameInputControl.setState({ value: name.slice(0, 20) });
+      this.imageSelector.setState({ image: avatar });
+      this.avatar = avatar;
     };
   }
   render () {
@@ -42,11 +42,12 @@ class Login extends React.Component {
         <h1>Hi, there.</h1>
         <h4>What's your name?</h4>
         <ImageSelector
-          ref={e => (this.$imageSelector = e)}
+          ref={e => (this.imageSelector = e)}
           initial={window.localStorage.dtym_avatar}
-          success={url => (this.$avatar = url)} />
+          success={url => (this.avatar = url)} />
         <TextInput
-          $sendValue={e => (this.$nameInput = e)}
+          ref={e => (this.nameInputControl = e)}
+          sendValue={e => (this.nameInput = e)}
           initial={window.localStorage.dtym_name}
           placeholder='your name' />
         <Button

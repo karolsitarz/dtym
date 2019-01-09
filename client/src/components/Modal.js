@@ -166,7 +166,7 @@ class Modal extends React.Component {
         in={this.state.active}
         timeout={length}
         classNames='modal'
-        onExited={e => this.props.destroyModal(this.props.id)} >
+        onExited={e => this.props.destroyModal(this.props._id)} >
         <StyledModalContainer>
           <StyledModalBG onClick={() => this.selectOption(this.default)} />
           <StyledModal>
