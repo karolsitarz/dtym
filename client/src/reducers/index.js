@@ -71,9 +71,25 @@ const lobbyReducer = (currentData = { players: {}, host: '', speaker: '' }, acti
   return currentData;
 };
 
+const modalReducer = (currentModals = [], action) => {
+  if (action.type === 'MODAL_CREATE') {
+    return (
+      [...currentModals, {
+        ...action.payload,
+        id: new Date() * 1
+      }]
+    );
+  }
+  if (action.type === 'MODAL_DESTROY') {
+    return currentModals.filter(c => c.id !== action.payload);
+  }
+  return currentModals;
+};
+
 export default combineReducers({
   socket: socketReducer,
   theme: themeReducer,
   section: sectionReducer,
-  lobby: lobbyReducer
+  lobby: lobbyReducer,
+  modal: modalReducer
 });

@@ -1,6 +1,8 @@
 import React from 'react';
 import { CSSTransition } from 'react-transition-group';
 import styled, { keyframes } from 'styled-components';
+import { connect } from 'react-redux';
+import { destroyModal } from '../actions';
 
 const length = 300;
 
@@ -126,7 +128,7 @@ const CountdownBar = styled.div`
   animation: ${countdown} ${props => props.delay}s both linear;
 `;
 
-export default class extends React.Component {
+class Modal extends React.Component {
   constructor (props) {
     super(props);
     this.options = [];
@@ -164,7 +166,7 @@ export default class extends React.Component {
         in={this.state.active}
         timeout={length}
         classNames='modal'
-        onExited={e => this.props.$purgeModal()} >
+        onExited={e => this.props.destroyModal(this.props.id)} >
         <StyledModalContainer>
           <StyledModalBG onClick={() => this.selectOption(this.default)} />
           <StyledModal>
@@ -185,3 +187,5 @@ export default class extends React.Component {
     );
   }
 }
+
+export default connect(null, { destroyModal })(Modal);

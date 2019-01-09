@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { changeSection, joinLobbyElse, leaveLobbyElse, updateLobbyHost, updateLobbySpeaker } from '../actions';
+import { changeSection, joinLobbyElse, leaveLobbyElse, updateLobbyHost, updateLobbySpeaker, createModal } from '../actions';
 
 import Button from '../components/form/Button';
 import Card from '../components/Card';
@@ -26,55 +26,48 @@ class RoomLobby extends React.Component {
     this.props.socket.comm('room_host_setSpeaker', playerID);
   }
   setHost ({ ID, name }) {
-    window.dispatchEvent(new window.CustomEvent('newModal', {
-      detail: {
-        title: 'Careful!',
-        desc: <span>Are you sure you want to set <b>{name}</b> as this room's host? You will lose all your powers.</span>,
-        options: [{
-          text: 'Yes',
-          action: () => this.props.socket.comm('room_host_setHost', ID)
-        }, {
-          text: 'No',
-          default: true,
-          timeout: 10
-        }]
-      }
-    }));
+    this.props.createModal({
+      title: 'Careful!',
+      desc: <span>Are you sure you want to set <b>{name}</b> as this room's host? You will lose all your powers.</span>,
+      options: [{
+        text: 'Yes',
+        action: () => this.props.socket.comm('room_host_setHost', ID)
+      }, {
+        text: 'No',
+        default: true,
+        timeout: 10
+      }]
+    });
   }
   kickUser ({ ID, name }) {
-    window.dispatchEvent(new window.CustomEvent('newModal', {
-      detail: {
-        title: 'Careful!',
-        desc: <span>Are you sure you want to kick <b>{name}</b> out of this room?</span>,
-        options: [{
-          text: 'Yes',
-          action: () => this.props.socket.comm('room_host_kick', ID)
-        }, {
-          text: 'No',
-          default: true,
-          timeout: 10
-        }]
-      }
-    }));
+    this.props.createModal({
+      title: 'Careful!',
+      desc: <span>Are you sure you want to kick <b>{name}</b> out of this room?</span>,
+      options: [{
+        text: 'Yes',
+        action: () => this.props.socket.comm('room_host_kick', ID)
+      }, {
+        text: 'No',
+        default: true,
+        timeout: 10
+      }]
+    });
   }
   leaveLobby () {
-    window.dispatchEvent(new window.CustomEvent('newModal', {
-      detail: {
-        title: 'Careful!',
-        desc: 'Are you sure you want to leave this room?',
-        options: [{
-          text: 'Yes',
-          action: () => this.props.socket.comm('room_leaveRoom')
-        }, {
-          text: 'No',
-          default: true,
-          timeout: 10
-        }]
-      }
-    }));
+    this.props.createModal({
+      title: 'Careful!',
+      desc: 'Are you sure you want to leave this room?',
+      options: [{
+        text: 'Yes',
+        action: () => this.props.socket.comm('room_leaveRoom')
+      }, {
+        text: 'No',
+        default: true,
+        timeout: 10
+      }]
+    });
   }
   render () {
-    console.log(this.props);
     const { players, host, speaker, socket } = this.props;
     // rearrange so the socket is the first
     let keys = Object.keys(players);
@@ -129,4 +122,4 @@ const mapStateToProps = state => ({
   speaker: state.lobby.speaker
 });
 
-export default connect(mapStateToProps, { changeSection, joinLobbyElse, leaveLobbyElse, updateLobbyHost, updateLobbySpeaker })(RoomLobby);
+export default connect(mapStateToProps, { changeSection, joinLobbyElse, leaveLobbyElse, updateLobbyHost, updateLobbySpeaker, createModal })(RoomLobby);

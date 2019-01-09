@@ -14,7 +14,7 @@ class Login extends React.Component {
     super(props);
     const { socket, changeSection } = this.props;
 
-    this.$avatar = window.localStorage['dtym_avatar'] || '';
+    this.$avatar = window.localStorage.dtym_avatar || '';
     this.loginPrompt = () => {
       socket.comm('login_prompt', {
         name: this.$nameInput ? this.$nameInput.value : '',
@@ -23,9 +23,9 @@ class Login extends React.Component {
     };
     socket.receive('login_success', data => {
       socket.ID = data.ID;
-      window.localStorage['dtym_name'] = data.name;
-      window.localStorage['dtym_avatar'] = data.avatar;
-      window.localStorage['dtym_sessionKey'] = data.sessionKey;
+      window.localStorage.dtym_name = data.name;
+      window.localStorage.dtym_avatar = data.avatar;
+      window.localStorage.dtym_sessionKey = data.sessionKey;
       changeSection('RoomList');
     });
 
@@ -43,11 +43,11 @@ class Login extends React.Component {
         <h4>What's your name?</h4>
         <ImageSelector
           ref={e => (this.$imageSelector = e)}
-          initial={window.localStorage['dtym_avatar']}
+          initial={window.localStorage.dtym_avatar}
           success={url => (this.$avatar = url)} />
         <TextInput
           $sendValue={e => (this.$nameInput = e)}
-          initial={window.localStorage['dtym_name']}
+          initial={window.localStorage.dtym_name}
           placeholder='your name' />
         <Button
           onClick={e => this.loginPrompt()}
@@ -58,7 +58,7 @@ class Login extends React.Component {
           onClick={e => this.props.changeTheme()} >
           all done
         </Button>
-        {window.localStorage['dtym_debug'] !== 'true' ? null
+        {window.localStorage.dtym_debug !== 'true' ? null
           : (<Button
             onClick={e => this.getRandom()} >
             get random

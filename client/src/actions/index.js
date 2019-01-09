@@ -41,3 +41,13 @@ export const updateLobbySpeaker = speaker => ({
   type: 'LOBBY_UPDATE_SPEAKER',
   payload: speaker
 });
+
+export const createModal = ({ title, desc, options }) => ({
+  type: 'MODAL_CREATE',
+  payload: { title, desc, options }
+});
+
+export const destroyModal = id => ({
+  type: 'MODAL_DESTROY',
+  payload: id
+});
