@@ -34,11 +34,11 @@ module.exports = (env, argv) => [
     node: {
       __dirname: false
     },
-    mode: 'production',
+    mode: 'development',
     performance: {
       hints: argv.mode === 'production' ? 'warning' : false
     },
-    devtool: argv.mode === 'production' ? 'none' : 'inline-source-map',
+    devtool: argv.mode === 'production' ? 'none' : 'cheap-module-eval-source-map',
     output: {
       path: path.join(__dirname, '../dist'),
       filename: 'main.js',

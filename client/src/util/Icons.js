@@ -44,8 +44,8 @@ export const StandardGradient = withTheme(class extends React.Component {
       <svg width='0' height='0' style={{ height: 0, width: 0, opacity: 0, pointerEvents: 'none', position: 'fixed' }}>
         <defs>
           <linearGradient gradientTransform='rotate(45,-1,0)' id='SG'>
-            <stop offset='0%' stop-color={theme.gradientStart} />
-            <stop offset='100%' stop-color={theme.gradientEnd} />
+            <stop offset='0%' stopColor={theme.gradientStart} />
+            <stop offset='100%' stopColor={theme.gradientEnd} />
           </linearGradient>
         </defs>
       </svg>
