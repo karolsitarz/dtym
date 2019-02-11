@@ -26,7 +26,7 @@ module.exports = socket => {
       Debounce[message].d = new Date();
 
       // add outgoing colored console log
-      if (window.localStorage['dtym_debug'] === 'true') {
+      if (window.localStorage.dtym_debug === 'true') {
         console.log(`%c→ ${message}`, `color: ${consoleColor}`, data);
       }
     }
@@ -40,7 +40,7 @@ module.exports = socket => {
       return;
     }
     // add incoming colored console log
-    if (window.localStorage['dtym_debug'] === 'true') {
+    if (window.localStorage.dtym_debug === 'true') {
       console.log(`\t%c← ${data.message}`, 'color: #C11B1B', data);
     }
 

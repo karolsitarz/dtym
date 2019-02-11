@@ -3,8 +3,8 @@ const app = express();
 require('express-ws')(app);
 const path = require('path');
 
-const ipaddress = process.env.IP || process.env.OPENSHIFT_NODEJS_IP || require('ip').address() || '127.0.0.1';
-const port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 443;
+const ipaddress = require('ip').address() || process.env.IP || process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1';
+const port = 443 || process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT;
 
 const langParse = require('accept-language-parser');
 

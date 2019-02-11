@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 
 import styled from 'styled-components';
 
@@ -59,18 +59,31 @@ const StyledTextInput = styled.input`
   }
 `;
 
-export default function TextInput (props) {
-  return (
-    <label>
-      <StyledTextInput
-        ref={e => props.$sendValue(e)}
-        type='text'
-        defaultValue={props.initial && props.initial.length <= 20 ? props.initial : ''}
-        maxLength='20'
-        placeholder=' ' />
-      <TextInputSpan>
-        {props.placeholder}
-      </TextInputSpan>
-    </label>
-  );
+export default class TextInput extends Component {
+  constructor (props) {
+    super(props);
+    const { initial } = this.props;
+
+    this.state = { value: initial && initial.length <= 20 ? initial : '' };
+    // this.updateText = this.updateText.bind(this);
+  }
+  updateText (value) {
+    if (value.length <= 20) this.setState({ value });
+  }
+  render () {
+    this.props.sendValue(this.state.value);
+    return (
+      <label>
+        <StyledTextInput
+          onChange={e => this.updateText(e.target.value)}
+          value={this.state.value}
+          type='text'
+          maxLength='20'
+          placeholder=' ' />
+        <TextInputSpan>
+          {this.props.placeholder}
+        </TextInputSpan>
+      </label>
+    );
+  }
 }
